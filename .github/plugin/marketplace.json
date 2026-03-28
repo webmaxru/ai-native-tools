@@ -11,7 +11,6 @@
     {
       "name": "web-ai-skills",
       "description": "Agent skills for browser Web AI APIs (Prompt API, Language Detector, Translator, Writing Assistance, Proofreader, WebMCP, WebNN) and AI-native development workflows (Agent Package Manager, GitHub Agentic Workflows)",
-      "version": "1.0.0",
       "source": {
         "source": "github",
         "repo": "webmaxru/agent-skills"

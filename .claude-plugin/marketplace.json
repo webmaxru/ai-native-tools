@@ -1,10 +1,12 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "webmaxru-ai-native-tools",
-  "version": "1.0.0",
-  "description": "Curated agent skills for AI-native development by Maxim Salnikov",
   "owner": {
     "name": "Maxim Salnikov"
+  },
+  "metadata": {
+    "description": "Curated agent skills for AI-native development by Maxim Salnikov",
+    "version": "1.0.0"
   },
   "plugins": [
     {
