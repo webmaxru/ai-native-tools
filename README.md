@@ -1,5 +1,4 @@
-# ai-native-tools
-
+# AI-Native Development Tools
 Plugin marketplace for AI-native development agent skills, maintained by [Maxim Salnikov](https://github.com/webmaxru).
 
 This marketplace aggregates agent skill plugins from multiple repositories into a single install point.
