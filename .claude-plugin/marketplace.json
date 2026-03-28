@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "webmaxru-ai-native-tools",
+  "version": "1.0.0",
+  "description": "Curated agent skills for AI-native development by Maxim Salnikov",
+  "owner": {
+    "name": "Maxim Salnikov"
+  },
+  "plugins": [
+    {
+      "name": "web-ai-skills",
+      "description": "Agent skills for browser Web AI APIs (Prompt API, Language Detector, Translator, Writing Assistance, Proofreader, WebMCP, WebNN) and AI-native development workflows (Agent Package Manager, GitHub Agentic Workflows)",
+      "source": {
+        "source": "github",
+        "repo": "webmaxru/agent-skills"
+      },
+      "category": "development"
+    }
+  ]
+}
