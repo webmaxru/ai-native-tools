@@ -19,16 +19,19 @@ const PLUGINS = [
     name: "AI-Native Development Skills",
     repo: "webmaxru/ai-native-dev",
     description: "Core development tools: package management, skill deployment, and agentic workflows",
+    pluginAddCmd: "/copilot plugin add ai-native-dev-skills@webmaxru/ai-native-dev",
   },
   {
     name: "Web AI Skills",
     repo: "webmaxru/agent-skills",
     description: "Browser AI APIs: Prompt API, language detection, translation, writing assistance, and on-device ML",
+    pluginAddCmd: "/copilot plugin add web-ai-skills@webmaxru/ai-native-dev",
   },
   {
     name: "Enonic CMS Skills",
     repo: "webmaxru/enonic-agent-skills",
     description: "Enonic CMS agent skills for content management, API reference, and integrations",
+    pluginAddCmd: "/copilot plugin add enonic-skills@webmaxru/ai-native-dev",
   },
 ];
 
@@ -156,6 +159,7 @@ async function fetchPluginSkills(plugin) {
     repo: plugin.repo,
     repoUrl: `https://github.com/${plugin.repo}`,
     description: plugin.description,
+    pluginAddCmd: plugin.pluginAddCmd,
     skillCount: skills.length,
     skills,
   };

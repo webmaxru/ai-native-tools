@@ -126,9 +126,37 @@
       padding: 0 24px;
     }
 
+    /* ── Top Bar ───────────────────────────────────────────── */
+    .top-bar {
+      position: fixed; top: 12px; right: 20px; z-index: 1000;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .top-search { position: relative; }
+    .top-search input {
+      width: 200px; padding: 8px 12px 8px 32px; font-size: 13px;
+      background: var(--color-bg-secondary); border: 1px solid var(--color-border);
+      border-radius: 20px; color: var(--color-text);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, width 0.2s ease;
+    }
+    .top-search input:focus {
+      outline: none; border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(133, 52, 243, 0.15);
+      width: 280px;
+    }
+    .top-search input::placeholder { color: var(--color-text-muted); }
+    .top-search .search-icon {
+      position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+      width: 14px; height: 14px; color: var(--color-text-muted); pointer-events: none;
+    }
+    .search-results-count {
+      text-align: center; margin-top: 8px;
+      font-size: 13px; color: var(--color-text-muted); font-weight: 500;
+    }
+    .search-results-count.hidden { display: none; }
+
     /* ── Theme Toggle ─────────────────────────────────────── */
     .theme-toggle {
-      position: fixed; top: 16px; right: 20px; z-index: 1000;
+      flex-shrink: 0;
       width: 40px; height: 40px;
       background: var(--color-bg-secondary);
       border: 1px solid var(--color-border);
@@ -154,7 +182,7 @@
 
     /* ── Hero ─────────────────────────────────────────────── */
     .hero {
-      padding: 80px 0 40px;
+      padding: 48px 0 0;
       text-align: center;
       position: relative;
       background: var(--gradient-hero);
@@ -167,10 +195,10 @@
     }
     .hero .container { position: relative; z-index: 2; }
     .hero h1 {
-      font-size: clamp(36px, 8vw, 64px);
+      font-size: clamp(32px, 6vw, 48px);
       font-weight: 800;
       letter-spacing: -0.03em;
-      margin-bottom: 24px;
+      margin-bottom: 12px;
       line-height: 1.1;
     }
     .gradient-text {
@@ -181,12 +209,31 @@
       display: inline-block;
     }
     .hero-subtitle {
-      font-size: clamp(16px, 3vw, 20px);
+      font-size: clamp(14px, 2.5vw, 17px);
       color: var(--color-text-muted);
       max-width: 640px;
-      margin: 0 auto 40px;
-      line-height: 1.6;
+      margin: 0 auto 20px;
+      line-height: 1.5;
     }
+    .hero-cmd {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin: 0 auto 0;
+      padding: 8px 16px;
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius);
+      font-family: var(--font-mono); font-size: 13px;
+      color: var(--color-text); cursor: pointer;
+      transition: border-color var(--transition);
+      max-width: 100%;
+    }
+    .hero-cmd:hover { border-color: var(--color-accent); }
+    .hero-cmd .cmd-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .hero-cmd .cmd-copy {
+      flex-shrink: 0; width: 14px; height: 14px;
+      color: var(--color-text-muted); transition: color var(--transition);
+    }
+    .hero-cmd:hover .cmd-copy { color: var(--color-accent); }
     .hero-actions {
       display: flex;
       gap: 12px;
@@ -217,49 +264,10 @@
     .btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
     .btn:active { transform: scale(0.97); }
 
-    /* ── Stats Bar ────────────────────────────────────────── */
-    .stats-bar {
-      display: flex; justify-content: center; gap: 48px;
-      margin-top: 48px; flex-wrap: wrap;
-    }
-    .stat { text-align: center; }
-    .stat-value {
-      font-size: 32px; font-weight: 800; color: var(--color-accent);
-      line-height: 1.2;
-    }
-    .stat-label {
-      font-size: 13px; color: var(--color-text-muted);
-      text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;
-    }
-
-    /* ── Search ───────────────────────────────────────────── */
-    .search-section { padding: 40px 0 24px; }
-    .search-bar {
-      max-width: 560px; margin: 0 auto; position: relative;
-    }
-    .search-bar input {
-      width: 100%; padding: 14px 20px 14px 44px; font-size: 15px;
-      background: var(--color-bg-secondary); border: 1px solid var(--color-border);
-      border-radius: var(--border-radius-lg); color: var(--color-text);
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    }
-    .search-bar input:focus {
-      outline: none; border-color: var(--color-accent);
-      box-shadow: 0 0 0 3px rgba(133, 52, 243, 0.15);
-    }
-    .search-bar input::placeholder { color: var(--color-text-muted); }
-    .search-bar .search-icon {
-      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-      width: 20px; height: 20px; color: var(--color-text-muted); pointer-events: none;
-    }
-    .search-results-count {
-      text-align: center; margin-top: 12px;
-      font-size: 14px; color: var(--color-text-muted); font-weight: 500;
-    }
-    .search-results-count.hidden { display: none; }
+    /* ── Plugins Section ──────────────────────────────────── */
 
     /* ── Plugin Sections ──────────────────────────────────── */
-    .plugins-section { padding: 0 0 80px; }
+    .plugins-section { padding: 24px 0 80px; }
 
     .plugin-group { margin-bottom: 48px; }
     .plugin-header {
@@ -284,6 +292,23 @@
     .plugin-desc {
       font-size: 14px; color: var(--color-text-muted); line-height: 1.5;
     }
+    .plugin-cmd {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 6px;
+      padding: 4px 10px;
+      background: var(--color-bg-tertiary);
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius);
+      font-family: var(--font-mono); font-size: 12px;
+      color: var(--color-text-muted); cursor: pointer;
+      transition: border-color var(--transition), color var(--transition);
+    }
+    .plugin-cmd:hover { border-color: var(--color-accent); color: var(--color-text); }
+    .plugin-cmd .cmd-copy {
+      flex-shrink: 0; width: 12px; height: 12px;
+      color: inherit; opacity: 0.6;
+    }
+    .plugin-cmd:hover .cmd-copy { opacity: 1; }
     .plugin-badges {
       display: flex; gap: 8px; align-items: center; flex-shrink: 0;
     }
@@ -315,8 +340,9 @@
       backdrop-filter: blur(10px);
       border: 1px solid var(--color-glass-border);
       border-radius: var(--border-radius-lg);
-      padding: 20px 24px;
-      display: flex; flex-direction: column; gap: 8px;
+      padding: 24px 24px 20px;
+      min-height: 200px;
+      display: flex; flex-direction: column; gap: 10px;
       transition: all var(--transition);
       position: relative;
       opacity: 0;
@@ -363,12 +389,21 @@
     .skill-description {
       font-size: 14px; color: var(--color-text-muted);
       line-height: 1.6;
-      overflow: hidden; text-overflow: ellipsis;
-      display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
+      overflow: hidden;
+      display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3;
       -webkit-box-orient: vertical;
+      max-height: calc(3 * 1.6em);
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    }
+    .skill-card:hover .skill-description,
+    .skill-card:focus-within .skill-description {
+      -webkit-line-clamp: unset; line-clamp: unset;
+      max-height: 40em;
+      transition: max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
     }
     .skill-description.expanded {
       -webkit-line-clamp: unset; line-clamp: unset;
+      max-height: none;
     }
 
     .skill-footer {
@@ -385,49 +420,24 @@
       display: inline-flex; align-items: center; gap: 4px;
     }
     .skill-link svg { width: 14px; height: 14px; }
-
-    /* ── Install Section ──────────────────────────────────── */
-    .install-section {
-      padding: 60px 0;
-      background: var(--color-bg-secondary);
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-    }
-    .install-section h2 {
-      font-size: 28px; font-weight: 800; text-align: center;
-      color: var(--color-text-emphasis); margin-bottom: 8px;
-    }
-    .install-section .subtitle {
-      text-align: center; color: var(--color-text-muted);
-      margin-bottom: 32px; font-size: 16px;
-    }
-    .install-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px; max-width: 800px; margin: 0 auto;
-    }
-    .install-card {
-      background: var(--color-card-bg);
-      border: 1px solid var(--color-glass-border);
-      border-radius: var(--border-radius-lg); padding: 24px;
-    }
-    .install-card h3 {
-      font-size: 16px; font-weight: 700; color: var(--color-text-emphasis);
-      margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
-    }
-    .install-code {
-      display: block; padding: 12px 14px;
-      font-family: var(--font-mono); font-size: 13px; line-height: 1.5;
-      background: var(--color-bg); color: var(--color-text);
+    .skill-cmd {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 10px;
+      background: var(--color-bg-tertiary);
       border: 1px solid var(--color-glass-border);
       border-radius: var(--border-radius);
-      overflow-x: auto; white-space: pre; cursor: pointer;
-      transition: border-color var(--transition);
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--color-text-muted); cursor: pointer;
+      transition: border-color var(--transition), color var(--transition);
+      overflow: hidden;
     }
-    .install-code:hover { border-color: var(--color-accent); }
-    .install-code + .install-code { margin-top: 8px; }
-    .install-note {
-      font-size: 13px; color: var(--color-text-muted); margin-top: 12px;
+    .skill-cmd:hover { border-color: var(--color-accent); color: var(--color-text); }
+    .skill-cmd .cmd-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .skill-cmd .cmd-copy {
+      flex-shrink: 0; width: 12px; height: 12px;
+      color: inherit; opacity: 0.5;
     }
+    .skill-cmd:hover .cmd-copy { opacity: 1; }
     .copy-toast {
       position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
       padding: 10px 20px; background: var(--color-success); color: #fff;
@@ -472,21 +482,21 @@
 
     /* ── Responsive ───────────────────────────────────────── */
     @media (max-width: 768px) {
-      .hero { padding: 60px 0 30px; }
-      .stats-bar { gap: 24px; }
-      .stat-value { font-size: 24px; }
+      .hero { padding: 40px 0 24px; }
       .skills-grid { grid-template-columns: 1fr; }
       .plugin-header { flex-direction: column; align-items: flex-start; }
       .plugin-badges { margin-top: 8px; }
-      .install-grid { grid-template-columns: 1fr; }
       .container { padding: 0 16px; }
-      .theme-toggle { top: 12px; right: 12px; width: 36px; height: 36px; }
+      .top-bar { top: 8px; right: 12px; }
+      .top-search input { width: 140px; font-size: 12px; }
+      .top-search input:focus { width: 200px; }
+      .theme-toggle { width: 36px; height: 36px; }
     }
 
     @media (max-width: 480px) {
-      .hero h1 { font-size: 28px; }
-      .hero-subtitle { font-size: 16px; }
-      .skills-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 26px; }
+      .hero-subtitle { font-size: 14px; }
+      .hero-cmd { font-size: 11px; }
     }
 
     /* ── Reduced Motion ───────────────────────────────────── */
@@ -515,48 +525,40 @@
   </style>
 </head>
 <body>
-  <!-- Theme Toggle -->
-  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
-    <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/></svg>
-  </button>
+  <!-- Top Bar: Search + Theme Toggle -->
+  <div class="top-bar">
+    <div class="top-search">
+      <svg class="search-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M10.68 11.74a6 6 0 01-7.922-8.982 6 6 0 018.982 7.922l3.04 3.04a.749.749 0 01-.326 1.275.749.749 0 01-.734-.215zM11.5 7a4.499 4.499 0 10-8.997 0A4.499 4.499 0 0011.5 7z"/></svg>
+      <label for="search-input" class="sr-only">Search skills</label>
+      <input type="text" id="search-input" placeholder="Search skills..." autocomplete="off">
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/></svg>
+    </button>
+  </div>
 
   <!-- Hero -->
   <section class="hero" aria-labelledby="hero-heading">
     <div class="container">
       <h1 id="hero-heading">
-        <span class="gradient-text">AI-Native Dev</span><br>
-        <span style="color: var(--color-text-emphasis)">Skills Catalog</span>
+        <span class="gradient-text">AI-Native Dev</span> <span style="color: var(--color-text-emphasis)">Skills Catalog</span>
       </h1>
       <p class="hero-subtitle">
         Agent skill plugins for AI-native development — maintained by
         <a href="https://github.com/webmaxru" target="_blank" rel="noopener">Maxim Salnikov</a>
       </p>
-      <div class="hero-actions">
-        <a href="https://github.com/webmaxru/ai-native-dev" class="btn btn-primary" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-          View on GitHub
-        </a>
-        <a href="#install" class="btn btn-secondary">
-          <svg viewBox="0 0 16 16"><path d="M2.75 14A1.75 1.75 0 011 12.25v-2.5a.75.75 0 011.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25v-2.5a.75.75 0 011.5 0v2.5A1.75 1.75 0 0113.25 14zM7.25 7.689V2a.75.75 0 011.5 0v5.689l1.97-1.969a.749.749 0 111.06 1.06l-3.25 3.25a.749.749 0 01-1.06 0L4.22 6.78a.749.749 0 111.06-1.06l1.97 1.969z"/></svg>
-          Install All
-        </a>
+      <div class="hero-cmd" data-copy="true" title="Click to copy">
+        <span class="cmd-text">/plugin marketplace add webmaxru/ai-native-dev</span>
+        <svg class="cmd-copy" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25zM5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25z"/></svg>
       </div>
-      <div class="stats-bar" id="stats-bar"></div>
     </div>
   </section>
 
-  <!-- Search -->
-  <section class="search-section" aria-label="Search skills">
-    <div class="container">
-      <div class="search-bar">
-        <svg class="search-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M10.68 11.74a6 6 0 01-7.922-8.982 6 6 0 018.982 7.922l3.04 3.04a.749.749 0 01-.326 1.275.749.749 0 01-.734-.215zM11.5 7a4.499 4.499 0 10-8.997 0A4.499 4.499 0 0011.5 7z"/></svg>
-        <label for="search-input" class="sr-only">Search skills</label>
-        <input type="text" id="search-input" placeholder="Search skills by name or description..." autocomplete="off">
-      </div>
-      <p class="search-results-count hidden" id="results-count" aria-live="polite"></p>
-    </div>
-  </section>
+  <!-- Search results count -->
+  <div class="container">
+    <p class="search-results-count hidden" id="results-count" aria-live="polite"></p>
+  </div>
 
   <!-- Skills by Plugin -->
   <section class="plugins-section" aria-label="Skills grouped by plugin">
@@ -565,43 +567,14 @@
     </div>
   </section>
 
-  <!-- Install -->
-  <section class="install-section" id="install" aria-labelledby="install-heading">
-    <div class="container">
-      <h2 id="install-heading">Install</h2>
-      <p class="subtitle">Get all plugins at once via the plugin marketplace</p>
-      <div class="install-grid">
-        <div class="install-card">
-          <h3>
-            <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/><path d="M6.5 7.75A.75.75 0 017.25 7h1a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V8.5h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 110-2 1 1 0 010 2z"/></svg>
-            Plugin Marketplace
-          </h3>
-          <code class="install-code" title="Click to copy" data-copy="true">/plugin marketplace add webmaxru/ai-native-dev</code>
-          <p class="install-note">Then install individual plugins:</p>
-          <code class="install-code" title="Click to copy" data-copy="true">/copilot plugin add ai-native-dev-skills@webmaxru/ai-native-dev</code>
-          <code class="install-code" title="Click to copy" data-copy="true">/copilot plugin add web-ai-skills@webmaxru/ai-native-dev</code>
-          <code class="install-code" title="Click to copy" data-copy="true">/copilot plugin add enonic-skills@webmaxru/ai-native-dev</code>
-        </div>
-        <div class="install-card">
-          <h3>
-            <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor"><path d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5zM10 4.25v-2.5l3.5 3.5H10.75a.25.25 0 01-.25-.25zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25z"/></svg>
-            APM (Individual Skills)
-          </h3>
-          <code class="install-code" title="Click to copy" data-copy="true">apm install webmaxru/ai-native-dev/skills/agent-package-manager</code>
-          <code class="install-code" title="Click to copy" data-copy="true">apm install webmaxru/agent-skills/skills/prompt-api</code>
-          <code class="install-code" title="Click to copy" data-copy="true">apm install webmaxru/enonic-agent-skills/skills/enonic-api-reference</code>
-          <p class="install-note">Replace the skill path with any skill from the catalog above.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
       <p>
-        <a href="https://github.com/webmaxru/ai-native-dev">AI-Native Development Tools</a>
-        — maintained by <a href="https://github.com/webmaxru">Maxim Salnikov</a>
+        <a href="https://github.com/webmaxru/ai-native-dev" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="vertical-align:-3px;margin-right:4px"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>AI-Native Development Tools
+        </a>
+        — maintained by <a href="https://github.com/webmaxru" target="_blank" rel="noopener">Maxim Salnikov</a>
       </p>
       <p class="build-info" id="build-info"></p>
     </div>
@@ -617,7 +590,7 @@
 
   <script>
     // ── Catalog data (injected at build time) ──────────────────
-    const CATALOG = {"generatedAt":"2026-03-29T20:41:03.652Z","totalSkills":18,"plugins":[{"name":"ai-native-dev-skills","repo":"webmaxru/ai-native-dev","repoUrl":"https://github.com/webmaxru/ai-native-dev","description":"Core development tools: package management, skill deployment, and agentic workflows","skillCount":3,"skills":[{"name":"agent-package-manager","dirName":"agent-package-manager","description":"Installs, configures, audits, and operates Agent Package Manager (APM) in repositories. Use when initializing apm.yml, installing or updating packages, validating manifests, managing lockfiles, compiling agent context, browsing MCP servers, setting up runtimes, or packaging resolved context for CI and team distribution. Don't use for writing a single skill by hand, generic package managers like npm or pip, or non-APM agent configuration systems.","shortDescription":"Installs, configures, audits, and operates Agent Package Manager (APM) in repositories.","version":"1.2","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/ai-native-dev/tree/main/skills/agent-package-manager","installCmd":"apm install webmaxru/ai-native-dev/skills/agent-package-manager"},{"name":"agent-skill-deploy","dirName":"agent-skill-deploy","description":"Deploys agent skill collections from any GitHub repository with a /skills folder to one or more distribution surfaces: GitHub releases, Claude Code marketplace, VS Code plugin marketplace, and Copilot CLI plugin marketplace. Handles pre-flight validation, conventional commit analysis, version bumping across surface configs, and surface-specific publishing with dry-run support. Use when releasing, publishing, or deploying a skills collection to any supported marketplace or creating a GitHub release for a skills repository. Don't use for deploying non-skill packages, npm modules, Docker images, or Azure resources.","shortDescription":"Deploys agent skill collections from any GitHub repository with a /skills folder to one or more distribution surfaces: GitHub releases, Claude Code marketplace, VS Code plugin marketplace, and Copilot CLI plugin marketplace.","version":"1.5","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/ai-native-dev/tree/main/skills/agent-skill-deploy","installCmd":"apm install webmaxru/ai-native-dev/skills/agent-skill-deploy"},{"name":"github-agentic-workflows","dirName":"github-agentic-workflows","description":"Authors, reviews, installs, and debugs GitHub Agentic Workflows in repositories, including workflow markdown, frontmatter, gh aw compile and run flows, safe outputs, security guardrails, and operational patterns. Use when creating or maintaining GH-AW automation. Don't use for standard deterministic GitHub Actions YAML, generic CI pipelines, or non-GitHub automation systems.","shortDescription":"Authors, reviews, installs, and debugs GitHub Agentic Workflows in repositories, including workflow markdown, frontmatter, gh aw compile and run flows, safe outputs, security guardrails, and operational patterns.","version":"1.1","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/ai-native-dev/tree/main/skills/github-agentic-workflows","installCmd":"apm install webmaxru/ai-native-dev/skills/github-agentic-workflows"}]},{"name":"web-ai-skills","repo":"webmaxru/agent-skills","repoUrl":"https://github.com/webmaxru/agent-skills","description":"Browser AI APIs: Prompt API, language detection, translation, writing assistance, and on-device ML","skillCount":7,"skills":[{"name":"language-detector-api","dirName":"language-detector-api","description":"Implements and debugs browser Language Detector API integrations in JavaScript or TypeScript web apps. Use when adding LanguageDetector support checks, availability and model download flows, session creation, detect() calls, input-usage measurement, permissions-policy handling, or compatibility fallbacks for built-in language detection. Don't use for server-side language detection SDKs, cloud translation services, or generic NLP pipelines.","shortDescription":"Implements and debugs browser Language Detector API integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/language-detector-api","installCmd":"apm install webmaxru/agent-skills/skills/language-detector-api"},{"name":"prompt-api","dirName":"prompt-api","description":"Implements and debugs browser Prompt API integrations in JavaScript or TypeScript web apps. Use when adding LanguageModel availability checks, session creation, prompt or promptStreaming flows, structured output, download progress UX, or iframe permission-policy handling. Don't use for server-side LLM SDKs, REST AI APIs, or non-browser providers.","shortDescription":"Implements and debugs browser Prompt API integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/prompt-api","installCmd":"apm install webmaxru/agent-skills/skills/prompt-api"},{"name":"proofreader-api","dirName":"proofreader-api","description":"Implements and debugs browser Proofreader API integrations in JavaScript or TypeScript web apps. Use when adding Proofreader availability checks, monitored model downloads, proofread flows, correction metadata handling, or permissions-policy checks for built-in proofreading. Don't use for generic prompt engineering, server-side LLM SDKs, or cloud AI services.","shortDescription":"Implements and debugs browser Proofreader API integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/proofreader-api","installCmd":"apm install webmaxru/agent-skills/skills/proofreader-api"},{"name":"translator-api","dirName":"translator-api","description":"Implements and debugs browser Translator API integrations in JavaScript or TypeScript web apps. Use when adding Translator support checks, language-pair availability flows, model download UX, session creation, translate() or translateStreaming() calls, input-usage measurement, or permissions-policy handling for on-device translation. Don't use for server-side translation SDKs, cloud translation services, or generic multilingual content pipelines.","shortDescription":"Implements and debugs browser Translator API integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/translator-api","installCmd":"apm install webmaxru/agent-skills/skills/translator-api"},{"name":"webmcp","dirName":"webmcp","description":"Implements and debugs browser WebMCP integrations in JavaScript or TypeScript web apps. Use when exposing imperative tools through navigator.modelContext, annotating HTML forms for declarative tools, handling agent-invoked form flows, or validating WebMCP behavior in the current Chrome preview. Don't use for server-side MCP servers, REST tool backends, or non-browser providers.","shortDescription":"Implements and debugs browser WebMCP integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/webmcp","installCmd":"apm install webmaxru/agent-skills/skills/webmcp"},{"name":"webnn","dirName":"webnn","description":"Implements and debugs browser Web Neural Network API integrations in JavaScript or TypeScript web apps. Use when adding navigator.ml checks, MLContext creation, MLGraphBuilder flows, device selection, tensor dispatch and readback, or explicit fallback paths to ONNX Runtime Web or other local runtimes. Don't use for model training, server-side ML inference, or cloud AI APIs.","shortDescription":"Implements and debugs browser Web Neural Network API integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/webnn","installCmd":"apm install webmaxru/agent-skills/skills/webnn"},{"name":"writing-assistance-apis","dirName":"writing-assistance-apis","description":"Implements and debugs browser Summarizer, Writer, and Rewriter integrations in JavaScript or TypeScript web apps. Use when adding availability checks, model download UX, session creation, summarize or write or rewrite flows, streaming output, abort handling, or permissions-policy constraints for built-in writing assistance APIs. Don't use for generic prompt engineering, server-side LLM SDKs, or cloud AI services.","shortDescription":"Implements and debugs browser Summarizer, Writer, and Rewriter integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/writing-assistance-apis","installCmd":"apm install webmaxru/agent-skills/skills/writing-assistance-apis"}]},{"name":"enonic-skills","repo":"webmaxru/enonic-agent-skills","repoUrl":"https://github.com/webmaxru/enonic-agent-skills","description":"Enonic CMS agent skills for content management, API reference, and integrations","skillCount":8,"skills":[{"name":"enonic-api-reference","dirName":"enonic-api-reference","description":"Enonic XP server-side JavaScript/TypeScript API reference for all /lib/xp/* libraries. Provides function signatures, parameters, return types, and usage examples for lib-content, lib-node, lib-auth, lib-portal, lib-context, lib-event, lib-task, lib-repo, lib-io, lib-mail, and lib-schema. Use when looking up Enonic XP library functions, parameter shapes, return types, or usage examples. Do not use for Guillotine GraphQL queries, content type schema definitions, Enonic CLI commands, or non-Enonic JavaScript APIs.","shortDescription":"Enonic XP server-side JavaScript/TypeScript API reference for all /lib/xp/* libraries.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-api-reference","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-api-reference"},{"name":"enonic-content-migration","dirName":"enonic-content-migration","description":"Generates Enonic XP scripts for bulk content operations — creating, updating, querying, migrating, and transforming content using lib-content and lib-node APIs. Covers the query DSL (NoQL), aggregations, batch processing, task controllers for long-running operations, and export/import workflows. Use when writing bulk content creation, update, or deletion scripts, querying with NoQL syntax, migrating content between environments, running long-running task operations, or working with aggregations and paginated retrieval. Do not use for Guillotine GraphQL frontend queries, content type schema definitions, single contentLib.get() calls, or non-Enonic data migration tools.","shortDescription":"Generates Enonic XP scripts for bulk content operations — creating, updating, querying, migrating, and transforming content using lib-content and lib-node APIs.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-content-migration","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-content-migration"},{"name":"enonic-content-type-generator","dirName":"enonic-content-type-generator","description":"Generates Enonic XP content type XML schema definitions from natural-language descriptions. Covers structured content modeling including input types, form layout, option sets, item sets, mixins, x-data, and content-type inheritance. Use when creating, scaffolding, or generating Enonic XP content type definitions, adding fields or sets to existing content types, or querying Enonic XP input types and super-types. Do not use for non-Enonic CMS content modeling, GraphQL queries, JavaScript/TypeScript controllers, or generic XML editing unrelated to Enonic schemas.","shortDescription":"Generates Enonic XP content type XML schema definitions from natural-language descriptions.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-content-type-generator","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-content-type-generator"},{"name":"enonic-controller-generator","dirName":"enonic-controller-generator","description":"Generates Enonic XP controller files (TypeScript/JavaScript) and paired XML descriptors for pages, parts, and layouts. Covers lib-portal imports, HTTP handler exports, region definitions, Thymeleaf/Mustache rendering, and response processors. Use when scaffolding page controllers with regions, part controllers with config access, layout controllers with multi-region support, or response processors for Enonic XP sites. Do not use for content type schemas, headless Next.js/React frontends, GraphQL Guillotine queries, or non-Enonic web frameworks.","shortDescription":"Generates Enonic XP controller files (TypeScript/JavaScript) and paired XML descriptors for pages, parts, and layouts.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-controller-generator","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-controller-generator"},{"name":"enonic-guillotine-query-builder","dirName":"enonic-guillotine-query-builder","description":"Composes, debugs, and optimizes Guillotine GraphQL queries for Enonic XP headless content delivery. Covers query construction, variable usage, filtering, aggregation, pagination, sorting, and TypeScript type generation from the auto-generated Guillotine schema. Use when writing or troubleshooting Guillotine queries, querying custom content types through GraphQL, or generating typed interfaces from Guillotine responses. Don't use for content type XML definitions, non-Enonic GraphQL APIs (Apollo, Hasura), server-side lib-content queries, or Guillotine deployment and CORS configuration.","shortDescription":"Composes, debugs, and optimizes Guillotine GraphQL queries for Enonic XP headless content delivery.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-guillotine-query-builder","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-guillotine-query-builder"},{"name":"enonic-nextxp-integration","dirName":"enonic-nextxp-integration","description":"Guides setup, development, and troubleshooting of the Next.js and Enonic XP headless integration (Next.XP framework). Covers Enonic adapter configuration, content type to React component mapping, Guillotine GraphQL data fetching, Content Studio preview mode, and draft/master branch switching. Use when building a Next.js frontend powered by Enonic XP, configuring the Next.XP adapter, mapping content types to components, fetching Enonic content via Guillotine in Next.js, or debugging Content Studio preview. Don't use for traditional server-side Enonic XP rendering, standalone Guillotine queries without Next.js, non-Next.js frontend frameworks with Enonic, or React4XP embedded rendering.","shortDescription":"Guides setup, development, and troubleshooting of the Next.js and Enonic XP headless integration (Next.XP framework).","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-nextxp-integration","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-nextxp-integration"},{"name":"enonic-sandbox-manager","dirName":"enonic-sandbox-manager","description":"Guides developers through Enonic CLI commands for sandbox management, project scaffolding, local development, app deployment, and CI/CD pipeline generation. Use when creating Enonic XP sandboxes, starting or stopping local instances, scaffolding projects from starters, running dev mode with hot-reload, deploying apps, or generating CI/CD workflows for Enonic apps. Don't use for writing XP application code (controllers, content types), querying via Guillotine or lib-content APIs, configuring non-Enonic environments, or Docker/Kubernetes deployment of XP.","shortDescription":"Guides developers through Enonic CLI commands for sandbox management, project scaffolding, local development, app deployment, and CI/CD pipeline generation.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-sandbox-manager","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-sandbox-manager"},{"name":"enonic-webhook-integrator","dirName":"enonic-webhook-integrator","description":"Sets up Enonic XP event listeners, webhook configurations, and external system integrations triggered by content lifecycle events. Covers lib-event listener registration, node event filtering, outbound webhook configuration via com.enonic.xp.webhooks.cfg, custom HTTP service controllers for inbound webhooks, task-based async processing with lib-task, and outbound HTTP calls with lib-httpClient. Use when listening for content publish/create/update/delete events, configuring outbound webhooks, building HTTP service endpoints for inbound webhooks, or triggering async processing on content changes. Do not use for content querying, frontend component development, non-Enonic event systems, or GitHub webhook configuration.","shortDescription":"Sets up Enonic XP event listeners, webhook configurations, and external system integrations triggered by content lifecycle events.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-webhook-integrator","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-webhook-integrator"}]}]};
+    const CATALOG = {"generatedAt":"2026-03-29T21:12:24.832Z","totalSkills":18,"plugins":[{"name":"AI-Native Development Skills","repo":"webmaxru/ai-native-dev","repoUrl":"https://github.com/webmaxru/ai-native-dev","description":"Core development tools: package management, skill deployment, and agentic workflows","pluginAddCmd":"/copilot plugin add ai-native-dev-skills@webmaxru/ai-native-dev","skillCount":3,"skills":[{"name":"agent-package-manager","dirName":"agent-package-manager","description":"Installs, configures, audits, and operates Agent Package Manager (APM) in repositories. Use when initializing apm.yml, installing or updating packages, validating manifests, managing lockfiles, compiling agent context, browsing MCP servers, setting up runtimes, or packaging resolved context for CI and team distribution. Don't use for writing a single skill by hand, generic package managers like npm or pip, or non-APM agent configuration systems.","shortDescription":"Installs, configures, audits, and operates Agent Package Manager (APM) in repositories.","version":"1.2","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/ai-native-dev/tree/main/skills/agent-package-manager","installCmd":"apm install webmaxru/ai-native-dev/skills/agent-package-manager"},{"name":"agent-skill-deploy","dirName":"agent-skill-deploy","description":"Deploys agent skill collections from any GitHub repository with a /skills folder to one or more distribution surfaces: GitHub releases, Claude Code marketplace, VS Code plugin marketplace, and Copilot CLI plugin marketplace. Handles pre-flight validation, conventional commit analysis, version bumping across surface configs, and surface-specific publishing with dry-run support. Use when releasing, publishing, or deploying a skills collection to any supported marketplace or creating a GitHub release for a skills repository. Don't use for deploying non-skill packages, npm modules, Docker images, or Azure resources.","shortDescription":"Deploys agent skill collections from any GitHub repository with a /skills folder to one or more distribution surfaces: GitHub releases, Claude Code marketplace, VS Code plugin marketplace, and Copilot CLI plugin marketplace.","version":"1.5","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/ai-native-dev/tree/main/skills/agent-skill-deploy","installCmd":"apm install webmaxru/ai-native-dev/skills/agent-skill-deploy"},{"name":"github-agentic-workflows","dirName":"github-agentic-workflows","description":"Authors, reviews, installs, and debugs GitHub Agentic Workflows in repositories, including workflow markdown, frontmatter, gh aw compile and run flows, safe outputs, security guardrails, and operational patterns. Use when creating or maintaining GH-AW automation. Don't use for standard deterministic GitHub Actions YAML, generic CI pipelines, or non-GitHub automation systems.","shortDescription":"Authors, reviews, installs, and debugs GitHub Agentic Workflows in repositories, including workflow markdown, frontmatter, gh aw compile and run flows, safe outputs, security guardrails, and operational patterns.","version":"1.1","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/ai-native-dev/tree/main/skills/github-agentic-workflows","installCmd":"apm install webmaxru/ai-native-dev/skills/github-agentic-workflows"}]},{"name":"Web AI Skills","repo":"webmaxru/agent-skills","repoUrl":"https://github.com/webmaxru/agent-skills","description":"Browser AI APIs: Prompt API, language detection, translation, writing assistance, and on-device ML","pluginAddCmd":"/copilot plugin add web-ai-skills@webmaxru/ai-native-dev","skillCount":7,"skills":[{"name":"language-detector-api","dirName":"language-detector-api","description":"Implements and debugs browser Language Detector API integrations in JavaScript or TypeScript web apps. Use when adding LanguageDetector support checks, availability and model download flows, session creation, detect() calls, input-usage measurement, permissions-policy handling, or compatibility fallbacks for built-in language detection. Don't use for server-side language detection SDKs, cloud translation services, or generic NLP pipelines.","shortDescription":"Implements and debugs browser Language Detector API integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/language-detector-api","installCmd":"apm install webmaxru/agent-skills/skills/language-detector-api"},{"name":"prompt-api","dirName":"prompt-api","description":"Implements and debugs browser Prompt API integrations in JavaScript or TypeScript web apps. Use when adding LanguageModel availability checks, session creation, prompt or promptStreaming flows, structured output, download progress UX, or iframe permission-policy handling. Don't use for server-side LLM SDKs, REST AI APIs, or non-browser providers.","shortDescription":"Implements and debugs browser Prompt API integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/prompt-api","installCmd":"apm install webmaxru/agent-skills/skills/prompt-api"},{"name":"proofreader-api","dirName":"proofreader-api","description":"Implements and debugs browser Proofreader API integrations in JavaScript or TypeScript web apps. Use when adding Proofreader availability checks, monitored model downloads, proofread flows, correction metadata handling, or permissions-policy checks for built-in proofreading. Don't use for generic prompt engineering, server-side LLM SDKs, or cloud AI services.","shortDescription":"Implements and debugs browser Proofreader API integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/proofreader-api","installCmd":"apm install webmaxru/agent-skills/skills/proofreader-api"},{"name":"translator-api","dirName":"translator-api","description":"Implements and debugs browser Translator API integrations in JavaScript or TypeScript web apps. Use when adding Translator support checks, language-pair availability flows, model download UX, session creation, translate() or translateStreaming() calls, input-usage measurement, or permissions-policy handling for on-device translation. Don't use for server-side translation SDKs, cloud translation services, or generic multilingual content pipelines.","shortDescription":"Implements and debugs browser Translator API integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/translator-api","installCmd":"apm install webmaxru/agent-skills/skills/translator-api"},{"name":"webmcp","dirName":"webmcp","description":"Implements and debugs browser WebMCP integrations in JavaScript or TypeScript web apps. Use when exposing imperative tools through navigator.modelContext, annotating HTML forms for declarative tools, handling agent-invoked form flows, or validating WebMCP behavior in the current Chrome preview. Don't use for server-side MCP servers, REST tool backends, or non-browser providers.","shortDescription":"Implements and debugs browser WebMCP integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/webmcp","installCmd":"apm install webmaxru/agent-skills/skills/webmcp"},{"name":"webnn","dirName":"webnn","description":"Implements and debugs browser Web Neural Network API integrations in JavaScript or TypeScript web apps. Use when adding navigator.ml checks, MLContext creation, MLGraphBuilder flows, device selection, tensor dispatch and readback, or explicit fallback paths to ONNX Runtime Web or other local runtimes. Don't use for model training, server-side ML inference, or cloud AI APIs.","shortDescription":"Implements and debugs browser Web Neural Network API integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/webnn","installCmd":"apm install webmaxru/agent-skills/skills/webnn"},{"name":"writing-assistance-apis","dirName":"writing-assistance-apis","description":"Implements and debugs browser Summarizer, Writer, and Rewriter integrations in JavaScript or TypeScript web apps. Use when adding availability checks, model download UX, session creation, summarize or write or rewrite flows, streaming output, abort handling, or permissions-policy constraints for built-in writing assistance APIs. Don't use for generic prompt engineering, server-side LLM SDKs, or cloud AI services.","shortDescription":"Implements and debugs browser Summarizer, Writer, and Rewriter integrations in JavaScript or TypeScript web apps.","version":"1.0","author":"webmaxru","license":"MIT","githubUrl":"https://github.com/webmaxru/agent-skills/tree/main/skills/writing-assistance-apis","installCmd":"apm install webmaxru/agent-skills/skills/writing-assistance-apis"}]},{"name":"Enonic CMS Skills","repo":"webmaxru/enonic-agent-skills","repoUrl":"https://github.com/webmaxru/enonic-agent-skills","description":"Enonic CMS agent skills for content management, API reference, and integrations","pluginAddCmd":"/copilot plugin add enonic-skills@webmaxru/ai-native-dev","skillCount":8,"skills":[{"name":"enonic-api-reference","dirName":"enonic-api-reference","description":"Enonic XP server-side JavaScript/TypeScript API reference for all /lib/xp/* libraries. Provides function signatures, parameters, return types, and usage examples for lib-content, lib-node, lib-auth, lib-portal, lib-context, lib-event, lib-task, lib-repo, lib-io, lib-mail, and lib-schema. Use when looking up Enonic XP library functions, parameter shapes, return types, or usage examples. Do not use for Guillotine GraphQL queries, content type schema definitions, Enonic CLI commands, or non-Enonic JavaScript APIs.","shortDescription":"Enonic XP server-side JavaScript/TypeScript API reference for all /lib/xp/* libraries.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-api-reference","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-api-reference"},{"name":"enonic-content-migration","dirName":"enonic-content-migration","description":"Generates Enonic XP scripts for bulk content operations — creating, updating, querying, migrating, and transforming content using lib-content and lib-node APIs. Covers the query DSL (NoQL), aggregations, batch processing, task controllers for long-running operations, and export/import workflows. Use when writing bulk content creation, update, or deletion scripts, querying with NoQL syntax, migrating content between environments, running long-running task operations, or working with aggregations and paginated retrieval. Do not use for Guillotine GraphQL frontend queries, content type schema definitions, single contentLib.get() calls, or non-Enonic data migration tools.","shortDescription":"Generates Enonic XP scripts for bulk content operations — creating, updating, querying, migrating, and transforming content using lib-content and lib-node APIs.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-content-migration","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-content-migration"},{"name":"enonic-content-type-generator","dirName":"enonic-content-type-generator","description":"Generates Enonic XP content type XML schema definitions from natural-language descriptions. Covers structured content modeling including input types, form layout, option sets, item sets, mixins, x-data, and content-type inheritance. Use when creating, scaffolding, or generating Enonic XP content type definitions, adding fields or sets to existing content types, or querying Enonic XP input types and super-types. Do not use for non-Enonic CMS content modeling, GraphQL queries, JavaScript/TypeScript controllers, or generic XML editing unrelated to Enonic schemas.","shortDescription":"Generates Enonic XP content type XML schema definitions from natural-language descriptions.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-content-type-generator","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-content-type-generator"},{"name":"enonic-controller-generator","dirName":"enonic-controller-generator","description":"Generates Enonic XP controller files (TypeScript/JavaScript) and paired XML descriptors for pages, parts, and layouts. Covers lib-portal imports, HTTP handler exports, region definitions, Thymeleaf/Mustache rendering, and response processors. Use when scaffolding page controllers with regions, part controllers with config access, layout controllers with multi-region support, or response processors for Enonic XP sites. Do not use for content type schemas, headless Next.js/React frontends, GraphQL Guillotine queries, or non-Enonic web frameworks.","shortDescription":"Generates Enonic XP controller files (TypeScript/JavaScript) and paired XML descriptors for pages, parts, and layouts.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-controller-generator","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-controller-generator"},{"name":"enonic-guillotine-query-builder","dirName":"enonic-guillotine-query-builder","description":"Composes, debugs, and optimizes Guillotine GraphQL queries for Enonic XP headless content delivery. Covers query construction, variable usage, filtering, aggregation, pagination, sorting, and TypeScript type generation from the auto-generated Guillotine schema. Use when writing or troubleshooting Guillotine queries, querying custom content types through GraphQL, or generating typed interfaces from Guillotine responses. Don't use for content type XML definitions, non-Enonic GraphQL APIs (Apollo, Hasura), server-side lib-content queries, or Guillotine deployment and CORS configuration.","shortDescription":"Composes, debugs, and optimizes Guillotine GraphQL queries for Enonic XP headless content delivery.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-guillotine-query-builder","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-guillotine-query-builder"},{"name":"enonic-nextxp-integration","dirName":"enonic-nextxp-integration","description":"Guides setup, development, and troubleshooting of the Next.js and Enonic XP headless integration (Next.XP framework). Covers Enonic adapter configuration, content type to React component mapping, Guillotine GraphQL data fetching, Content Studio preview mode, and draft/master branch switching. Use when building a Next.js frontend powered by Enonic XP, configuring the Next.XP adapter, mapping content types to components, fetching Enonic content via Guillotine in Next.js, or debugging Content Studio preview. Don't use for traditional server-side Enonic XP rendering, standalone Guillotine queries without Next.js, non-Next.js frontend frameworks with Enonic, or React4XP embedded rendering.","shortDescription":"Guides setup, development, and troubleshooting of the Next.js and Enonic XP headless integration (Next.XP framework).","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-nextxp-integration","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-nextxp-integration"},{"name":"enonic-sandbox-manager","dirName":"enonic-sandbox-manager","description":"Guides developers through Enonic CLI commands for sandbox management, project scaffolding, local development, app deployment, and CI/CD pipeline generation. Use when creating Enonic XP sandboxes, starting or stopping local instances, scaffolding projects from starters, running dev mode with hot-reload, deploying apps, or generating CI/CD workflows for Enonic apps. Don't use for writing XP application code (controllers, content types), querying via Guillotine or lib-content APIs, configuring non-Enonic environments, or Docker/Kubernetes deployment of XP.","shortDescription":"Guides developers through Enonic CLI commands for sandbox management, project scaffolding, local development, app deployment, and CI/CD pipeline generation.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-sandbox-manager","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-sandbox-manager"},{"name":"enonic-webhook-integrator","dirName":"enonic-webhook-integrator","description":"Sets up Enonic XP event listeners, webhook configurations, and external system integrations triggered by content lifecycle events. Covers lib-event listener registration, node event filtering, outbound webhook configuration via com.enonic.xp.webhooks.cfg, custom HTTP service controllers for inbound webhooks, task-based async processing with lib-task, and outbound HTTP calls with lib-httpClient. Use when listening for content publish/create/update/delete events, configuring outbound webhooks, building HTTP service endpoints for inbound webhooks, or triggering async processing on content changes. Do not use for content querying, frontend component development, non-Enonic event systems, or GitHub webhook configuration.","shortDescription":"Sets up Enonic XP event listeners, webhook configurations, and external system integrations triggered by content lifecycle events.","version":null,"author":null,"license":null,"githubUrl":"https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-webhook-integrator","installCmd":"apm install webmaxru/enonic-agent-skills/skills/enonic-webhook-integrator"}]}]};
 
     // ── Escape HTML ────────────────────────────────────────────
     function esc(str) {
@@ -686,6 +659,10 @@
               <div class="plugin-info">
                 <h2 class="plugin-name">${esc(plugin.name)}</h2>
                 <p class="plugin-desc">${esc(plugin.description)}</p>
+                ${plugin.pluginAddCmd ? `<div class="plugin-cmd" data-copy="true" title="Click to copy">
+                  <span class="cmd-text">${esc(plugin.pluginAddCmd)}</span>
+                  <svg class="cmd-copy" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25zM5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25z"/></svg>
+                </div>` : ''}
               </div>
               <div class="plugin-badges">
                 <span class="badge badge-count">${filteredSkills.length} skill${filteredSkills.length === 1 ? "" : "s"}</span>
@@ -706,6 +683,10 @@
                 ${skill.version ? `<span class="skill-version">v${esc(skill.version)}</span>` : ""}
               </div>
               <p class="skill-description" title="${esc(skill.description)}">${highlight(skill.description || "No description", query)}</p>
+              <div class="skill-cmd" data-copy="true" title="Click to copy">
+                <span class="cmd-text">${esc(skill.installCmd)}</span>
+                <svg class="cmd-copy" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25zM5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25z"/></svg>
+              </div>
               <div class="skill-footer">
                 ${skill.license ? `<span class="skill-tag">${esc(skill.license)}</span>` : ""}
                 ${skill.author ? `<span class="skill-tag">by ${esc(skill.author)}</span>` : ""}
@@ -730,26 +711,6 @@
       } else {
         resultsCount.classList.add("hidden");
       }
-    }
-
-    // ── Stats Bar ──────────────────────────────────────────────
-    function renderStats() {
-      if (!CATALOG) return;
-      const bar = document.getElementById("stats-bar");
-      bar.innerHTML = `
-        <div class="stat">
-          <div class="stat-value">${CATALOG.totalSkills}</div>
-          <div class="stat-label">Skills</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">${CATALOG.plugins.length}</div>
-          <div class="stat-label">Plugins</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">${CATALOG.plugins.reduce((s, p) => s + new Set(p.skills.map(sk => sk.repo || p.repo)).size, 0)}</div>
-          <div class="stat-label">Repositories</div>
-        </div>
-      `;
     }
 
     // ── Build Info ─────────────────────────────────────────────
@@ -808,7 +769,6 @@
 
     // ── Init ───────────────────────────────────────────────────
     render("");
-    renderStats();
     renderBuildInfo();
   </script>
 </body>
