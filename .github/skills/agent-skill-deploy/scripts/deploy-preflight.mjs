@@ -107,6 +107,13 @@ const remoteUrl = run("git remote get-url origin");
 if (remoteUrl) {
   surfaces.push("github");
   ok(`GitHub surface detected: ${remoteUrl}`);
+
+  // Include latest git tag version in consistency check
+  const lastTag = run("git describe --tags --abbrev=0");
+  if (lastTag) {
+    const tagVersion = lastTag.replace(/^v/, "");
+    versions["github:tag"] = tagVersion;
+  }
 } else {
   warn("No git remote 'origin' found — GitHub surface unavailable");
 }
@@ -166,14 +173,42 @@ if (existsSync(packageJson)) {
   }
 }
 
+// Copilot CLI plugin.json (at .github/plugin/plugin.json)
+const copilotCliPluginJson = join(root, ".github", "plugin", "plugin.json");
+const copilotCliMarketplaceJson = join(root, ".github", "plugin", "marketplace.json");
+
+if (existsSync(copilotCliPluginJson)) {
+  try {
+    const cliPlugin = JSON.parse(readFileSync(copilotCliPluginJson, "utf8"));
+    const cpv = cliPlugin.version || null;
+    if (cpv) versions["copilot-cli:plugin.json"] = cpv;
+
+    if (existsSync(copilotCliMarketplaceJson)) {
+      const cliMarketplace = JSON.parse(readFileSync(copilotCliMarketplaceJson, "utf8"));
+      const cmv = (cliMarketplace.plugins && cliMarketplace.plugins[0] && cliMarketplace.plugins[0].version) || (cliMarketplace.metadata && cliMarketplace.metadata.version) || null;
+      if (cmv) versions["copilot-cli:marketplace.json"] = cmv;
+      ok(`Copilot CLI plugin.json detected (version: ${cpv || "unset"}, marketplace: ${cmv || "unset"})`);
+      if (cpv && cmv && cpv !== cmv) {
+        warn(`Copilot CLI version mismatch: plugin.json=${cpv}, marketplace.json=${cmv}`);
+      }
+    } else {
+      ok(`Copilot CLI plugin.json detected (version: ${cpv || "unset"}, marketplace.json absent)`);
+    }
+
+    if (!surfaces.includes("copilot-cli")) {
+      surfaces.push("copilot-cli");
+    }
+  } catch (e) {
+    warn(`Copilot CLI plugin.json parse error: ${e.message}`);
+  }
+}
+
 // --- Tool availability ---
 
 const tools = {
   git: !!run("git --version"),
   node: !!run("node --version"),
   gh: !!run("gh --version"),
-  vsce: !!run("vsce --version"),
-  jq: !!run("jq --version"),
 };
 
 console.log("");
@@ -185,9 +220,6 @@ for (const [tool, available] of Object.entries(tools)) {
 if (!tools.git) fail("git is required but not found");
 if (surfaces.includes("github") && !tools.gh) {
   warn("gh CLI not found — GitHub release creation will not be available");
-}
-if (surfaces.includes("vscode") && !tools.vsce) {
-  warn("vsce not found — VS Code marketplace publishing will not be available (push-based deploy still works)");
 }
 
 // --- Version consistency ---

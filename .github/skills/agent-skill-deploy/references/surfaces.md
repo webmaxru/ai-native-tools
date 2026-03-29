@@ -93,34 +93,65 @@ apm install OWNER/REPO/skills/SKILL_NAME
    }
    ```
 
-2. For full VS Code extension publishing, additional fields are needed:
-   - `publisher` — VS Code marketplace publisher ID
-   - `engines.vscode` — Minimum VS Code version
-   - `main` or `browser` — Extension entry point
+2. VS Code agent plugins do **not** use the VS Code Extension Marketplace (`vsce publish`). They are distributed as Git repositories and installed via plugin marketplaces or directly from source.
 
-**Deploy actions:**
-- **Push-based (default):** Bump version, commit, push. Install via "Chat: Install Plugin From Source" in VS Code Command Palette.
-- **Marketplace publish (optional):** Run `vsce publish` if `vsce` is installed and publisher is configured.
+**Deploy action:** Bump version, commit, push. Consumers install via "Chat: Install Plugin From Source" in the VS Code Command Palette, or browse the plugin through `@agentPlugins` in the Extensions view if the plugin is listed in a marketplace Git repository.
 
 **Required tools:**
 - `git` — always required
-- `vsce` — optional, for VS Code marketplace publishing. Install with `npm install -g @vscode/vsce`
 
-**Install command for consumers (push-based):**
-Run **Chat: Install Plugin From Source** from the Command Palette and enter:
-```text
-https://github.com/OWNER/REPO
-```
+**Install command for consumers:**
+- Run **Chat: Install Plugin From Source** from the Command Palette and enter:
+  ```text
+  https://github.com/OWNER/REPO
+  ```
+- Or browse `@agentPlugins` in the Extensions view if the plugin is listed in a configured marketplace.
 
 ---
 
 ## Copilot CLI Plugin Marketplace
 
-**Detection:** `package.json` exists in repository root.
+**Detection:** `package.json` exists in repository root, and/or `.github/plugin/plugin.json` exists.
 
-**Config files:** Same as VS Code surface — `package.json` with `version` field.
+**Config files:**
 
-**Deploy action:** Bump version, commit, push. The Copilot CLI marketplace reads from GitHub directly.
+1. `package.json` — Shared with VS Code surface. Contains `version` field.
+
+2. `.github/plugin/plugin.json` (recommended) — Copilot CLI native plugin manifest with `version` field and optional component paths (`skills`, `agents`, `hooks`, `mcpServers`):
+   ```json
+   {
+     "name": "my-skills",
+     "version": "1.0.0",
+     "description": "...",
+     "author": { "name": "..." },
+     "license": "MIT",
+     "keywords": [...],
+     "skills": "skills/"
+   }
+   ```
+   Copilot CLI also looks for `plugin.json` in `.claude-plugin/` as a fallback. Having a dedicated `.github/plugin/plugin.json` allows Copilot CLI-specific fields (like `skills`, `agents`, `commands`) without affecting the Claude Code plugin config.
+
+**Deploy action:** Bump version in `package.json`, `.github/plugin/plugin.json`, and `.github/plugin/marketplace.json` (if present), commit, push. The Copilot CLI marketplace reads from GitHub directly.
+
+`.github/plugin/marketplace.json` (optional) — Copilot CLI native marketplace listing. Follows the Copilot CLI spec where `source` for in-repo plugins is a relative path string (e.g. `"."`) and version lives in both `plugins[0].version` and `metadata.version`:
+   ```json
+   {
+     "name": "my-marketplace",
+     "owner": { "name": "..." },
+     "metadata": {
+       "description": "...",
+       "version": "1.0.0"
+     },
+     "plugins": [
+       {
+         "name": "my-skills",
+         "source": ".",
+         "category": "development",
+         "version": "1.0.0"
+       }
+     ]
+   }
+   ```
 
 **Required tools:** `git`
 
