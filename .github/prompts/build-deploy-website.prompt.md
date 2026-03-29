@@ -12,7 +12,7 @@ Steps:
    ```bash
    node scripts/build-website.mjs
    ```
-2. Verify the build succeeded (18 skills across 3 plugins expected).
+2. Verify the build succeeded.
 3. Stage the generated output:
    ```bash
    git add docs/
