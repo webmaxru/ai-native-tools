@@ -46,9 +46,9 @@ Use this skill when the user:
 | Surface          | Config Files                                                       | Deploy Action                    | Tool Required       |
 | ---------------- | ------------------------------------------------------------------ | -------------------------------- | ------------------- |
 | **github**       | Git remote URL                                                     | Create tag + GitHub release      | `gh`                |
-| **claude-code**  | `.claude-plugin/plugin.json` (required), `.claude-plugin/marketplace.json` (optional) | Bump version, commit, push       | `git`               |
+| **claude-code**  | `.claude-plugin/plugin.json` (required), `.claude-plugin/marketplace.json` (optional) | Bump plugin version, commit, push  | `git`               |
 | **vscode**       | `package.json`                                                     | Bump version, commit, push       | `git`               |
-| **copilot-cli**  | `package.json`, `.github/plugin/plugin.json`, `.github/plugin/marketplace.json` (optional) | Bump version, commit, push       | `git`               |
+| **copilot-cli**  | `package.json`, `.github/plugin/plugin.json`, `.github/plugin/marketplace.json` (optional) | Bump plugin version, commit, push  | `git`               |
 
 ## Bundled Scripts
 
@@ -65,6 +65,18 @@ node scripts/deploy-preflight.mjs
 node scripts/deploy-analyze.mjs
 node scripts/deploy-execute.mjs 1.2.0 --surfaces github,claude-code --dry-run
 ```
+
+## Version Handling Rules
+
+Marketplace.json files contain two distinct version fields with different semantics:
+
+- **`plugins[].version`** (plugin version) — Tracks the version of each listed plugin. Bumped during releases for local plugins (where `source` is `"."`).
+- **`metadata.version`** (marketplace version) — Tracks the version of the marketplace collection itself. **Never bumped during skill/plugin releases.** Managed independently.
+
+**Cross-file sync rules:**
+
+- All plugin versions must stay consistent: `plugin.json`, `package.json`, `plugins[].version` in marketplace files, and the git tag.
+- All `metadata.version` values across marketplace.json files (`.claude-plugin/marketplace.json` and `.github/plugin/marketplace.json`) must stay in sync with each other.
 
 ## Deploy Workflow
 

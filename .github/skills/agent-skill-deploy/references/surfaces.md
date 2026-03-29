@@ -44,26 +44,33 @@ apm install OWNER/REPO/skills/SKILL_NAME
    }
    ```
 
-2. `.claude-plugin/marketplace.json` (optional) — Marketplace listing with version in `plugins[0].version` or root `version`. If absent, the plugin is assumed to be listed by a marketplace defined in another repository. Only `plugin.json` is version-bumped in that case.
+2. `.claude-plugin/marketplace.json` (optional) — Marketplace listing. Contains two distinct version concerns:
+   - `metadata.version`: The marketplace collection version. **Not bumped during skill/plugin releases.** Must stay in sync with `metadata.version` in `.github/plugin/marketplace.json` if both exist.
+   - `plugins[].version`: The version of the listed plugin (for local plugins with `source: "."`). Bumped during releases to match plugin.json.
+   
+   If marketplace.json is absent, the plugin is assumed to be listed by a marketplace defined in another repository. Only `plugin.json` is version-bumped in that case.
    ```json
    {
      "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
      "name": "owner-repo",
-     "version": "1.0.0",
-     "description": "...",
      "owner": { "name": "..." },
+     "metadata": {
+       "description": "...",
+       "version": "1.0.0"
+     },
      "plugins": [
        {
          "name": "my-skills",
          "description": "...",
          "source": ".",
-         "category": "development"
+         "category": "development",
+         "version": "1.0.0"
        }
      ]
    }
    ```
 
-**Deploy action:** Bump version in `plugin.json` (and `marketplace.json` if present), commit, push. The marketplace reads from GitHub directly.
+**Deploy action:** Bump version in `plugin.json` and `plugins[].version` in `marketplace.json` (if present) for the local plugin entry (`source: "."`). Do **not** bump `metadata.version` in marketplace.json — that tracks the marketplace collection version independently. Commit and push. The marketplace reads from GitHub directly.
 
 **Required tools:** `git`
 
@@ -131,9 +138,11 @@ apm install OWNER/REPO/skills/SKILL_NAME
    ```
    Copilot CLI also looks for `plugin.json` in `.claude-plugin/` as a fallback. Having a dedicated `.github/plugin/plugin.json` allows Copilot CLI-specific fields (like `skills`, `agents`, `commands`) without affecting the Claude Code plugin config.
 
-**Deploy action:** Bump version in `package.json`, `.github/plugin/plugin.json`, and `.github/plugin/marketplace.json` (if present), commit, push. The Copilot CLI marketplace reads from GitHub directly.
+**Deploy action:** Bump version in `package.json`, `.github/plugin/plugin.json`, and `plugins[].version` in `.github/plugin/marketplace.json` (if present) for the local plugin entry (`source: "."`). Do **not** bump `metadata.version` in marketplace.json — that tracks the marketplace collection version independently. Commit and push. The Copilot CLI marketplace reads from GitHub directly.
 
-`.github/plugin/marketplace.json` (optional) — Copilot CLI native marketplace listing. Follows the Copilot CLI spec where `source` for in-repo plugins is a relative path string (e.g. `"."`) and version lives in both `plugins[0].version` and `metadata.version`:
+`.github/plugin/marketplace.json` (optional) — Copilot CLI native marketplace listing. Contains two distinct version concerns:
+   - `metadata.version`: The marketplace collection version. **Not bumped during skill/plugin releases.** Must stay in sync with `metadata.version` in `.claude-plugin/marketplace.json` if both exist.
+   - `plugins[].version`: The version of the listed plugin (for local plugins with `source: "."`). Bumped during releases to match plugin.json.
    ```json
    {
      "name": "my-marketplace",

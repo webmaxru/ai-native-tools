@@ -167,23 +167,23 @@ if (existsSync(pluginPath)) {
 if (existsSync(marketplacePath)) {
   const data = readJsonSafe(marketplacePath);
   if (data) {
-    const oldVersion = (data.plugins && data.plugins[0] && data.plugins[0].version) || data.version || "unset";
-    updates.push({
-      surface: "claude-code",
-      file: ".claude-plugin/marketplace.json",
-      path: marketplacePath,
-      field: "plugins[0].version or version",
-      oldValue: oldVersion,
-      apply: () => {
-        if (data.plugins && data.plugins[0]) {
-          data.plugins[0].version = version;
-        }
-        if (data.version !== undefined) {
-          data.version = version;
-        }
-        writeJsonSafe(marketplacePath, data);
-      },
-    });
+    // Only bump the local plugin version (source="."), never the marketplace metadata.version.
+    // Marketplace versions are independent from plugin versions and managed separately.
+    const localPlugin = data.plugins && data.plugins.find((p) => p.source === "." || p.source === "./");
+    if (localPlugin) {
+      const oldVersion = localPlugin.version || "unset";
+      updates.push({
+        surface: "claude-code",
+        file: ".claude-plugin/marketplace.json",
+        path: marketplacePath,
+        field: "plugins[local].version",
+        oldValue: oldVersion,
+        apply: () => {
+          localPlugin.version = version;
+          writeJsonSafe(marketplacePath, data);
+        },
+      });
+    }
   }
 }
 
@@ -232,23 +232,23 @@ const copilotCliMarketplacePath = join(root, ".github", "plugin", "marketplace.j
 if (existsSync(copilotCliMarketplacePath)) {
   const data = readJsonSafe(copilotCliMarketplacePath);
   if (data) {
-    const oldVersion = (data.plugins && data.plugins[0] && data.plugins[0].version) || (data.metadata && data.metadata.version) || "unset";
-    updates.push({
-      surface: "copilot-cli",
-      file: ".github/plugin/marketplace.json",
-      path: copilotCliMarketplacePath,
-      field: "plugins[0].version and metadata.version",
-      oldValue: oldVersion,
-      apply: () => {
-        if (data.plugins && data.plugins[0]) {
-          data.plugins[0].version = version;
-        }
-        if (data.metadata && data.metadata.version !== undefined) {
-          data.metadata.version = version;
-        }
-        writeJsonSafe(copilotCliMarketplacePath, data);
-      },
-    });
+    // Only bump the local plugin version (source="."), never the marketplace metadata.version.
+    // Marketplace versions are independent from plugin versions and managed separately.
+    const localPlugin = data.plugins && data.plugins.find((p) => p.source === "." || p.source === "./");
+    if (localPlugin) {
+      const oldVersion = localPlugin.version || "unset";
+      updates.push({
+        surface: "copilot-cli",
+        file: ".github/plugin/marketplace.json",
+        path: copilotCliMarketplacePath,
+        field: "plugins[local].version",
+        oldValue: oldVersion,
+        apply: () => {
+          localPlugin.version = version;
+          writeJsonSafe(copilotCliMarketplacePath, data);
+        },
+      });
+    }
   }
 }
 
@@ -275,10 +275,9 @@ if (!dryRun && (bumpOnly || !pushMode)) {
   for (const u of updates) {
     const data = readJsonSafe(u.path);
     let actual = null;
-    if (u.file === ".claude-plugin/marketplace.json") {
-      actual = (data.plugins && data.plugins[0] && data.plugins[0].version) || data.version;
-    } else if (u.file === ".github/plugin/marketplace.json") {
-      actual = (data.plugins && data.plugins[0] && data.plugins[0].version) || (data.metadata && data.metadata.version);
+    if (u.file === ".claude-plugin/marketplace.json" || u.file === ".github/plugin/marketplace.json") {
+      const localPlugin = data.plugins && data.plugins.find((p) => p.source === "." || p.source === "./");
+      actual = localPlugin ? localPlugin.version : null;
     } else {
       actual = data.version;
     }

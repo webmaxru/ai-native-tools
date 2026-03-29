@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Curated skills, instructions, custom agents and other primitives for AI-native development by Maxim Salnikov",
-    "version": "1.4.0"
+    "version": "1.1.0"
   },
   "plugins": [
     {

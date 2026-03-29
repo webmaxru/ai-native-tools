@@ -101,6 +101,7 @@ if (!existsSync(skillsPath)) {
 
 const surfaces = [];
 const versions = {};
+const marketplaceVersions = {};
 
 // GitHub surface
 const remoteUrl = run("git remote get-url origin");
@@ -133,11 +134,16 @@ if (existsSync(pluginJson)) {
 
     if (existsSync(marketplaceJson)) {
       const marketplace = JSON.parse(readFileSync(marketplaceJson, "utf8"));
-      const mv = marketplace.version || (marketplace.plugins && marketplace.plugins[0] && marketplace.plugins[0].version) || null;
-      if (mv) versions["claude-code:marketplace.json"] = mv;
-      ok(`Claude Code surface detected (plugin: ${pv || "unset"}, marketplace: ${mv || "unset"})`);
-      if (pv && mv && pv !== mv) {
-        warn(`Claude Code version mismatch: plugin.json=${pv}, marketplace.json=${mv}`);
+      // Plugin version in marketplace = local plugin's version (source ".")
+      const localPlugin = marketplace.plugins && marketplace.plugins.find((p) => p.source === "." || p.source === "./");
+      const lpv = localPlugin ? localPlugin.version || null : null;
+      if (lpv) versions["claude-code:marketplace.json(plugin)"] = lpv;
+      // Marketplace metadata.version is independent — tracked separately
+      const mmv = (marketplace.metadata && marketplace.metadata.version) || null;
+      if (mmv) marketplaceVersions["claude-code:marketplace.json"] = mmv;
+      ok(`Claude Code surface detected (plugin: ${pv || "unset"}, marketplace-plugin: ${lpv || "unset"}, marketplace-meta: ${mmv || "unset"})`);
+      if (pv && lpv && pv !== lpv) {
+        warn(`Claude Code plugin version mismatch: plugin.json=${pv}, marketplace plugin=${lpv}`);
       }
     } else {
       ok(`Claude Code surface detected (plugin: ${pv || "unset"}, marketplace.json absent — external marketplace assumed)`);
@@ -185,11 +191,16 @@ if (existsSync(copilotCliPluginJson)) {
 
     if (existsSync(copilotCliMarketplaceJson)) {
       const cliMarketplace = JSON.parse(readFileSync(copilotCliMarketplaceJson, "utf8"));
-      const cmv = (cliMarketplace.plugins && cliMarketplace.plugins[0] && cliMarketplace.plugins[0].version) || (cliMarketplace.metadata && cliMarketplace.metadata.version) || null;
-      if (cmv) versions["copilot-cli:marketplace.json"] = cmv;
-      ok(`Copilot CLI plugin.json detected (version: ${cpv || "unset"}, marketplace: ${cmv || "unset"})`);
-      if (cpv && cmv && cpv !== cmv) {
-        warn(`Copilot CLI version mismatch: plugin.json=${cpv}, marketplace.json=${cmv}`);
+      // Plugin version in marketplace = local plugin's version (source ".")
+      const localPlugin = cliMarketplace.plugins && cliMarketplace.plugins.find((p) => p.source === "." || p.source === "./");
+      const clpv = localPlugin ? localPlugin.version || null : null;
+      if (clpv) versions["copilot-cli:marketplace.json(plugin)"] = clpv;
+      // Marketplace metadata.version is independent — tracked separately
+      const cmmv = (cliMarketplace.metadata && cliMarketplace.metadata.version) || null;
+      if (cmmv) marketplaceVersions["copilot-cli:marketplace.json"] = cmmv;
+      ok(`Copilot CLI plugin.json detected (version: ${cpv || "unset"}, marketplace-plugin: ${clpv || "unset"}, marketplace-meta: ${cmmv || "unset"})`);
+      if (cpv && clpv && cpv !== clpv) {
+        warn(`Copilot CLI plugin version mismatch: plugin.json=${cpv}, marketplace plugin=${clpv}`);
       }
     } else {
       ok(`Copilot CLI plugin.json detected (version: ${cpv || "unset"}, marketplace.json absent)`);
@@ -224,20 +235,37 @@ if (surfaces.includes("github") && !tools.gh) {
 
 // --- Version consistency ---
 
+// Plugin versions: should all match across plugin.json files, package.json, marketplace plugin entries, and git tag
 const uniqueVersions = [...new Set(Object.values(versions))];
 
 console.log("");
-console.log("=== Version Summary ===");
+console.log("=== Plugin Version Summary ===");
 for (const [source, ver] of Object.entries(versions)) {
   console.log(`${source}: ${ver}`);
 }
 
 if (uniqueVersions.length > 1) {
-  warn(`Version mismatch across surfaces: ${JSON.stringify(versions)}`);
+  warn(`Plugin version mismatch across surfaces: ${JSON.stringify(versions)}`);
 } else if (uniqueVersions.length === 1) {
-  ok(`All surfaces at version ${uniqueVersions[0]}`);
+  ok(`All plugin versions at ${uniqueVersions[0]}`);
 } else {
-  warn("No versions detected in any surface config");
+  warn("No plugin versions detected in any surface config");
+}
+
+// Marketplace metadata versions: should match each other but are independent from plugin versions
+const uniqueMarketplaceVersions = [...new Set(Object.values(marketplaceVersions))];
+
+if (Object.keys(marketplaceVersions).length > 0) {
+  console.log("");
+  console.log("=== Marketplace Version Summary ===");
+  for (const [source, ver] of Object.entries(marketplaceVersions)) {
+    console.log(`${source}: ${ver}`);
+  }
+  if (uniqueMarketplaceVersions.length > 1) {
+    warn(`Marketplace metadata versions out of sync: ${JSON.stringify(marketplaceVersions)}`);
+  } else {
+    ok(`All marketplace metadata versions at ${uniqueMarketplaceVersions[0]}`);
+  }
 }
 
 // --- Summary ---
