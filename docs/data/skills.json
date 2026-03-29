@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-29T21:38:31.894Z",
+  "generatedAt": "2026-03-29T22:41:55.525Z",
   "totalSkills": 18,
   "plugins": [
     {
@@ -222,7 +222,7 @@
           "dirName": "enonic-webhook-integrator",
           "description": "Sets up Enonic XP event listeners, webhook configurations, and external system integrations triggered by content lifecycle events. Covers lib-event listener registration, node event filtering, outbound webhook configuration via com.enonic.xp.webhooks.cfg, custom HTTP service controllers for inbound webhooks, task-based async processing with lib-task, and outbound HTTP calls with lib-httpClient. Use when listening for content publish/create/update/delete events, configuring outbound webhooks, building HTTP service endpoints for inbound webhooks, or triggering async processing on content changes. Do not use for content querying, frontend component development, non-Enonic event systems, or GitHub webhook configuration.",
           "shortDescription": "Sets up Enonic XP event listeners, webhook configurations, and external system integrations triggered by content lifecycle events.",
-          "version": "1.1",
+          "version": "1.2",
           "author": "webmaxru",
           "license": "MIT",
           "githubUrl": "https://github.com/webmaxru/enonic-agent-skills/tree/main/skills/enonic-webhook-integrator",
