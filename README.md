@@ -69,9 +69,11 @@ Then open **Agent Plugins** in the Extensions sidebar (`@agentPlugins`), find th
 
 ### Install Individual Skills
 
-Install specific skills without the marketplace using APM or npm.
+Install specific skills without the marketplace using [APM](https://github.com/microsoft/apm) or npm.
 
 **ai-native-dev-skills** (this repo)
+
+Install with APM:
 
 ```bash
 apm install webmaxru/ai-native-dev/skills/agent-package-manager
@@ -79,7 +81,17 @@ apm install webmaxru/ai-native-dev/skills/agent-skill-deploy
 apm install webmaxru/ai-native-dev/skills/github-agentic-workflows
 ```
 
+Install with npm:
+
+```bash
+npx skills add webmaxru/ai-native-dev --skill agent-package-manager
+npx skills add webmaxru/ai-native-dev --skill agent-skill-deploy
+npx skills add webmaxru/ai-native-dev --skill github-agentic-workflows
+```
+
 **web-ai-skills** ([webmaxru/agent-skills](https://github.com/webmaxru/agent-skills))
+
+Install with APM:
 
 ```bash
 apm install webmaxru/agent-skills/skills/prompt-api
@@ -91,7 +103,21 @@ apm install webmaxru/agent-skills/skills/webmcp
 apm install webmaxru/agent-skills/skills/webnn
 ```
 
+Install with npm:
+
+```bash
+npx skills add webmaxru/agent-skills --skill prompt-api
+npx skills add webmaxru/agent-skills --skill language-detector-api
+npx skills add webmaxru/agent-skills --skill translator-api
+npx skills add webmaxru/agent-skills --skill writing-assistance-apis
+npx skills add webmaxru/agent-skills --skill proofreader-api
+npx skills add webmaxru/agent-skills --skill webmcp
+npx skills add webmaxru/agent-skills --skill webnn
+```
+
 **enonic-skills** ([webmaxru/enonic-agent-skills](https://github.com/webmaxru/enonic-agent-skills))
+
+Install with APM:
 
 ```bash
 apm install webmaxru/enonic-agent-skills/skills/enonic-api-reference
@@ -102,6 +128,19 @@ apm install webmaxru/enonic-agent-skills/skills/enonic-nextxp-integration
 apm install webmaxru/enonic-agent-skills/skills/enonic-sandbox-manager
 apm install webmaxru/enonic-agent-skills/skills/enonic-webhook-integrator
 apm install webmaxru/enonic-agent-skills/skills/enonic-controller-generator
+```
+
+Install with npm:
+
+```bash
+npx skills add webmaxru/enonic-agent-skills --skill enonic-api-reference
+npx skills add webmaxru/enonic-agent-skills --skill enonic-content-migration
+npx skills add webmaxru/enonic-agent-skills --skill enonic-content-type-generator
+npx skills add webmaxru/enonic-agent-skills --skill enonic-guillotine-query-builder
+npx skills add webmaxru/enonic-agent-skills --skill enonic-nextxp-integration
+npx skills add webmaxru/enonic-agent-skills --skill enonic-sandbox-manager
+npx skills add webmaxru/enonic-agent-skills --skill enonic-webhook-integrator
+npx skills add webmaxru/enonic-agent-skills --skill enonic-controller-generator
 ```
 
 ---
