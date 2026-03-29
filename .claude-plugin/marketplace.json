@@ -11,17 +11,27 @@
   "plugins": [
     {
       "name": "ai-native-dev-skills",
-      "source": { "source": "github", "repo": "webmaxru/ai-native-dev" },
-      "category": "development"
+      "source": {
+        "source": "github",
+        "repo": "webmaxru/ai-native-dev"
+      },
+      "category": "development",
+      "version": "1.1.0"
     },
     {
       "name": "web-ai-skills",
-      "source": { "source": "github", "repo": "webmaxru/agent-skills" },
+      "source": {
+        "source": "github",
+        "repo": "webmaxru/agent-skills"
+      },
       "category": "development"
     },
     {
       "name": "enonic-skills",
-      "source": { "source": "github", "repo": "webmaxru/enonic-agent-skills" },
+      "source": {
+        "source": "github",
+        "repo": "webmaxru/enonic-agent-skills"
+      },
       "category": "development"
     }
   ]
