@@ -1,4 +1,4 @@
-# AI-Native Development Tools
+# AI-Native Development Skills
 
 A **plugin marketplace** for AI-native development agent skills, maintained by [Maxim Salnikov](https://github.com/webmaxru).
 

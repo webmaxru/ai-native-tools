@@ -16,17 +16,17 @@ const ROOT = resolve(__dirname, "..");
 // ── Plugin definitions ────────────────────────────────────────────────
 const PLUGINS = [
   {
-    name: "ai-native-dev-skills",
+    name: "AI-Native Development Skills",
     repo: "webmaxru/ai-native-dev",
     description: "Core development tools: package management, skill deployment, and agentic workflows",
   },
   {
-    name: "web-ai-skills",
+    name: "Web AI Skills",
     repo: "webmaxru/agent-skills",
     description: "Browser AI APIs: Prompt API, language detection, translation, writing assistance, and on-device ML",
   },
   {
-    name: "enonic-skills",
+    name: "Enonic CMS Skills",
     repo: "webmaxru/enonic-agent-skills",
     description: "Enonic CMS agent skills for content management, API reference, and integrations",
   },
