@@ -1,8 +1,18 @@
 # AI-Native Development Tools
 
-Plugin marketplace for AI-native development agent skills, maintained by [Maxim Salnikov](https://github.com/webmaxru).
+A **plugin marketplace** for AI-native development agent skills, maintained by [Maxim Salnikov](https://github.com/webmaxru).
 
-This marketplace aggregates agent skill plugins from multiple repositories into a single install point.
+The marketplace aggregates agent skill plugins from this and other repositories into a single install point. Once installed, your coding agent gains access to every plugin and every skill each plugin provides — no per-skill setup required.
+
+## Available Skills (all plugins)
+
+Installing the marketplace gives you the following skills across all plugins:
+
+| Plugin | Skills | Source |
+|--------|--------|--------|
+| **ai-native-dev-skills** | Agent Package Manager · Agent Skill Deploy · GitHub Agentic Workflows | this repo |
+| **web-ai-skills** | Prompt API · Language Detector · Translator · Writing Assistance · Proofreader · WebMCP · WebNN | [webmaxru/agent-skills](https://github.com/webmaxru/agent-skills) |
+| **enonic-skills** | Enonic CMS agent skills collection | [webmaxru/enonic-agent-skills](https://github.com/webmaxru/enonic-agent-skills) |
 
 ## Install
 
@@ -36,76 +46,56 @@ Then browse **Agent Plugins** in the Extensions sidebar (`@agentPlugins`).
 copilot plugin marketplace add webmaxru/ai-native-dev
 ```
 
-## Available Plugins
+### Agent Package Manager (APM)
 
-| Plugin | Description | Source |
-|--------|-------------|--------|
-| `ai-native-dev-skills` | Agent skills for package management, skill deployment, and GitHub Agentic Workflows (this repo) | [webmaxru/ai-native-dev](https://github.com/webmaxru/ai-native-dev) |
-| `web-ai-skills` | Browser Web AI APIs (Prompt API, Language Detector, Translator, Writing Assistance, Proofreader, WebMCP, WebNN) and AI-native workflows | [webmaxru/agent-skills](https://github.com/webmaxru/agent-skills) |
-| `enonic-skills` | Enonic agent skills collection | [webmaxru/enonic-agent-skills](https://github.com/webmaxru/enonic-agent-skills) |
+```bash
+apm install webmaxru/ai-native-dev/skills/agent-package-manager
+apm install webmaxru/ai-native-dev/skills/agent-skill-deploy
+apm install webmaxru/ai-native-dev/skills/github-agentic-workflows
+```
 
-## Included Skills
+---
 
-Skills shipped in this repository under `skills/`:
+## Skills in This Repository
+
+The `skills/` directory contains three agent skills shipped as part of the **ai-native-dev-skills** plugin.
 
 ### Agent Package Manager
 
-`skills/agent-package-manager` — Installs, configures, audits, and operates [Agent Package Manager (APM)](https://github.com/microsoft/apm) in repositories that use agent instructions, skills, prompts, or MCP integrations.
+Installs, configures, audits, and operates [Agent Package Manager (APM)](https://github.com/microsoft/apm) in any repository that uses agent instructions, skills, prompts, or MCP integrations.
 
-It covers:
+**What the agent can do for you:**
 
-- Assessing existing APM state across `apm.yml`, `apm.lock.yaml`, tool config folders, and installed modules before making changes
-- Shaping or repairing `apm.yml` deliberately, including package dependencies, MCP servers, scripts, and reproducible dependency forms
-- Using `apm install`, `apm deps`, and dry-run flows to manage packages and lockfiles without guesswork
-- Validating when `apm compile` is useful, when install-only flows are sufficient, and how explicit targets affect generation
-- Operating scripts, runtimes, pack and unpack workflows, and CI-oriented distribution paths
-
-Support files: `references/manifest-and-lockfile.md`, `references/command-workflows.md`, `references/troubleshooting.md`, `assets/apm.yml.template`.
+- Initialize APM in a new or existing repo (`apm init`)
+- Add, update, and remove skill and MCP-server dependencies
+- Validate and repair `apm.yml` manifests
+- Manage lockfiles for reproducible, team-wide dependency resolution
+- Compile agent context and run project scripts
+- Set up runtimes, pack bundles for CI, and distribute resolved context
 
 ### Agent Skill Deploy
 
-`skills/agent-skill-deploy` — Deploys agent skill collections from any GitHub repository with a `/skills` folder to one or more distribution surfaces: GitHub releases, Claude Code marketplace, VS Code plugin marketplace, and Copilot CLI plugin marketplace.
+Deploys agent skill collections from any GitHub repository with a `/skills` folder to one or more distribution surfaces.
 
-It covers:
+**What the agent can do for you:**
 
-- Pre-flight validation of git state, skills inventory, and surface readiness
-- Conventional commit analysis with version bump recommendation
-- Version bumping across all detected surface configuration files
-- Surface-specific deployment with dry-run capability
-- User approval gates before irreversible operations
-
-Supported surfaces: GitHub releases (`gh`), Claude Code (`.claude-plugin/`), VS Code (`package.json` / `vsce`), Copilot CLI.
-
-Support files: `references/surfaces.md`, `scripts/deploy-analyze.mjs`, `scripts/deploy-execute.mjs`, `scripts/deploy-preflight.mjs`.
+- Validate git state, skill inventory, and surface readiness before release
+- Analyze conventional commits and recommend a version bump
+- Bump versions across all detected config files in one pass
+- Publish to GitHub Releases, Claude Code marketplace, VS Code plugin marketplace, and Copilot CLI marketplace
+- Run dry-run deployments to preview changes without side effects
 
 ### GitHub Agentic Workflows
 
-`skills/github-agentic-workflows` — Authors, reviews, installs, debugs, and operates GitHub Agentic Workflows in repositories, including workflow markdown, frontmatter, `gh aw` compile and run flows, safe outputs, security guardrails, and operational patterns.
+Authors, reviews, installs, and debugs GitHub Agentic Workflows — markdown-based CI/CD automation powered by AI agents.
 
-It covers:
+**What the agent can do for you:**
 
-- Identifying whether a repository already uses GH-AW and locating its active workflow surfaces
-- Creating or revising workflow markdown, frontmatter, and compile-time configuration
-- Choosing safe outputs, network policy, authentication, and lockdown settings with least privilege
-- Validating, compiling, running, and auditing workflows with the `gh aw` CLI
-- Diagnosing common setup, compilation, permissions, network, and engine failures
-
-Support files: `references/authoring.md`, `references/examples.md`, `references/security-and-operations.md`, `references/troubleshooting.md`, `assets/workflow.template.md`, `scripts/find-gh-aw-targets.mjs`.
-
-## Adding More Plugins
-
-To add a plugin from another repository, add an entry to `.claude-plugin/marketplace.json`:
-
-```json
-{
-  "name": "your-plugin-name",
-  "description": "...",
-  "source": {
-    "source": "github",
-    "repo": "owner/repo"
-  }
-}
-```
+- Scaffold new agentic workflows from templates
+- Configure triggers, safe outputs, network policy, and engine settings
+- Set up authentication and repository prerequisites
+- Compile, validate, and execute workflows with the `gh aw` CLI
+- Diagnose setup, compilation, permissions, and runtime failures
 
 ## License
 
