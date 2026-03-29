@@ -14,7 +14,7 @@ compatibility: Claude Code, VS Code Copilot, Copilot CLI
 allowed-tools: Bash Read Glob Task AskUserQuestion
 metadata:
   author: webmaxru
-  version: "1.4"
+  version: "1.5"
 ---
 
 # Agent Skill Collection Deploy

@@ -1,10 +1,10 @@
 lockfile_version: '1'
-generated_at: '2026-03-29T12:22:01.086247+00:00'
+generated_at: '2026-03-29T12:44:18.598921+00:00'
 apm_version: 0.7.9
 dependencies:
 - repo_url: webmaxru/ai-native-dev
   host: github.com
-  resolved_commit: 29afae0948d740fb361dd75cbd4c3b488e1de3f6
+  resolved_commit: d8581f387341829f0e454b8246a07b4e648bb9ed
   virtual_path: skills/agent-package-manager
   is_virtual: true
   package_type: claude_skill
@@ -12,7 +12,7 @@ dependencies:
   - .github/skills/agent-package-manager
 - repo_url: webmaxru/ai-native-dev
   host: github.com
-  resolved_commit: 29afae0948d740fb361dd75cbd4c3b488e1de3f6
+  resolved_commit: d8581f387341829f0e454b8246a07b4e648bb9ed
   virtual_path: skills/agent-skill-deploy
   is_virtual: true
   package_type: claude_skill
@@ -20,7 +20,7 @@ dependencies:
   - .github/skills/agent-skill-deploy
 - repo_url: webmaxru/ai-native-dev
   host: github.com
-  resolved_commit: 29afae0948d740fb361dd75cbd4c3b488e1de3f6
+  resolved_commit: d8581f387341829f0e454b8246a07b4e648bb9ed
   virtual_path: skills/github-agentic-workflows
   is_virtual: true
   package_type: claude_skill
