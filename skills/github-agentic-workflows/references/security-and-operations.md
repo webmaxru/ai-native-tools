@@ -30,11 +30,12 @@ Safe outputs are the core professional pattern for repository writes.
 
 Key points:
 
-1. The agent runs read-only and emits structured actions.
-2. Separate permission-controlled jobs apply those actions after validation.
-3. Common outputs include `create-issue`, `add-comment`, `add-labels`, `create-pull-request`, `dispatch-workflow`, `call-workflow`, `assign-to-agent`, and `create-agent-session`.
-4. `noop`, `missing-tool`, and `missing-data` are critical truthfulness and reliability tools.
-5. `staged: true` is the safest rollout mode for new write-heavy workflows.
+1. The agent runs read-only and emits a structured artifact describing its intended actions.
+2. Before any output is applied, a dedicated threat detection job runs an AI-powered scan of the agent's proposed changes. It checks for prompt injection attacks, leaked credentials, and malicious code patterns. If anything looks suspicious, the workflow fails immediately and nothing is written to the repository.
+3. After the threat detection gate, a separate job with scoped write permissions applies only what the workflow explicitly permits: hard limits per operation (such as a maximum of one issue per run), required title prefixes, and label constraints. The agent requests; a gated job decides.
+4. Common outputs include `create-issue`, `add-comment`, `add-labels`, `create-pull-request`, `dispatch-workflow`, `call-workflow`, `assign-to-agent`, and `create-agent-session`.
+5. `noop`, `missing-tool`, and `missing-data` are critical truthfulness and reliability tools.
+6. `staged: true` is the safest rollout mode for new write-heavy workflows.
 
 Professional prompt rule:
 
