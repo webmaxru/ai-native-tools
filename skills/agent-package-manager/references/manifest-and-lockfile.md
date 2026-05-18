@@ -92,6 +92,15 @@ Operational consequences:
 * `apm pack` reads from the lockfile and expects the listed deployed files to exist on disk.
 * `apm uninstall` and `apm prune` remove only files tracked in the lockfile’s deployed file manifest.
 
+## Policy governance
+
+`apm-policy.yml` is an optional file that applies install-time policy, including transitive MCP server gating. Inheritance flows enterprise → org → repo and is tighten-only (a downstream policy can only add restrictions, never relax them).
+
+Key points:
+* Policy is enforced automatically at `apm install`; no extra command is needed.
+* Transitive MCP servers that violate policy are blocked before they reach disk.
+* See the [Governance Guide](https://microsoft.github.io/apm/enterprise/governance-guide/) for enterprise configuration.
+
 ## Official reference map
 
 Use the official APM docs in this order when deeper details are needed:
@@ -102,3 +111,4 @@ Use the official APM docs in this order when deeper details are needed:
 * Dependencies and lockfile guide: `https://microsoft.github.io/apm/guides/dependencies/`
 * Compilation guide: `https://microsoft.github.io/apm/guides/compilation/`
 * Pack and distribute guide: `https://microsoft.github.io/apm/guides/pack-distribute/`
+* Governance guide: `https://microsoft.github.io/apm/enterprise/governance-guide/`
