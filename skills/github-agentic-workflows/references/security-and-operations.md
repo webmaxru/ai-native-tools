@@ -4,11 +4,13 @@ Use this reference when a workflow needs security review, authentication design,
 
 ## Security Model Summary
 
-GitHub Agentic Workflows uses layered controls:
+GitHub Agentic Workflows uses five named security layers that work together to contain a confused or compromised agent:
 
-1. Substrate trust: GitHub Actions runners, container isolation, AWF, API proxy, and MCP gateway isolation.
-2. Configuration trust: validated frontmatter, permissions, tool wiring, network rules, and token placement.
-3. Plan trust: staged execution and safe outputs so the agent does not write directly to repository state.
+1. **Read-only tokens**: The agent receives a GitHub token scoped to read-only permissions. Even if the agent attempts to create a pull request, push code, or delete a file, the underlying token does not allow it.
+2. **Zero secrets in the agent**: The agent process never receives write tokens, API keys, or other sensitive credentials. Those secrets exist only in separate, isolated jobs that run after the agent has finished and its output has passed review.
+3. **Network firewall**: The agent runs inside an isolated container. The Agent Workflow Firewall (AWF) routes all outbound traffic through a Squid proxy that enforces an explicit domain allowlist. Traffic to any other destination is dropped at the kernel level.
+4. **Safe outputs**: The agent cannot write to GitHub directly. It produces a structured artifact describing its intended actions. A separate job with scoped write permissions reads that artifact and applies only what the workflow explicitly permits.
+5. **Agentic threat detection**: Before any output is applied, a dedicated threat detection job runs an AI-powered scan of the agent's proposed changes, checking for prompt injection, leaked credentials, and malicious code patterns.
 
 Professional use starts by assuming prompts, tools, and repository content can be adversarial or misleading.
 
