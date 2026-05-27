@@ -4,7 +4,7 @@ description: Installs, configures, audits, and operates Agent Package Manager (A
 license: MIT
 metadata:
   author: webmaxru
-  version: "1.3"
+  version: "1.4"
 ---
 
 # Agent Package Manager
@@ -12,7 +12,7 @@ metadata:
 ## Procedures
 
 **Step 1: Assess the repository and the requested APM outcome**
-1. Inspect the repository root for `apm.yml`, `apm.lock.yaml`, `.github/`, `.claude/`, `.cursor/`, `.opencode/`, `.windsurf/`, and `apm_modules/`.
+1. Inspect the repository root for `apm.yml`, `apm.lock.yaml`, `.github/`, `.claude/`, `.codex/`, `.cursor/`, `.gemini/`, `.opencode/`, `.windsurf/`, and `apm_modules/`.
 2. Execute `apm --version` and `apm config` to confirm the installed CLI and current configuration.
 3. If `apm.yml` exists, read `references/manifest-and-lockfile.md` before changing dependencies, scripts, or compilation settings.
 4. If the request is about package installation, updates, pruning, or removal, read `references/command-workflows.md` before executing APM commands.
@@ -39,6 +39,7 @@ metadata:
 8. If installation output reports collisions or skipped files, read `references/troubleshooting.md` before retrying with forceful options.
 9. If the repository consumes packages from itself (self-referencing dependency), remind the user that changes must be committed and pushed before APM can fetch them. Read `references/troubleshooting.md` for the "Self-referencing dependencies" section.
 10. Note that `apm install` scans packages for security threats before deployment. If the scan raises warnings or blocks installation, address the flagged content rather than bypassing the check.
+  11. If the repository is in an organization that enforces `apm-policy.yml`, policy is applied at install time and can block transitive MCP servers or restrict dependency sources. If install is blocked by policy, inspect the policy file or contact the org administrator; do not attempt to bypass the enforcement.
 
 **Step 4: Compile and validate only when it adds value**
 1. Read `references/command-workflows.md` before changing compilation strategy or target selection.
@@ -59,6 +60,7 @@ metadata:
 
 ## Error Handling
 * If `apm` is missing, install or update it first, then verify with `apm --version` before editing project files.
+* If `apm install` is blocked by an organization policy (`apm-policy.yml`), do not bypass the policy; report the block and ask the administrator to adjust the policy or allowlist the dependency.
 * If `apm install` reports authentication failures, read `references/troubleshooting.md` and fix host authentication before retrying.
 * If `apm install` reports file collisions, inspect the diagnostic summary, retry with `--verbose` when needed, and use `--force` only when overwriting local files is clearly intended.
 * If `apm compile` is unnecessary for the user’s toolchain, avoid adding it as busywork; prefer the lighter install-only path.

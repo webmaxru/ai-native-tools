@@ -4,6 +4,16 @@ Use these command paths when an APM task needs exact CLI behavior instead of app
 
 ## Bootstrap and inspection
 
+Install APM itself:
+
+```text
+# macOS / Linux
+curl -sSL https://aka.ms/apm-unix | sh
+
+# Windows (PowerShell)
+irm https://aka.ms/apm-windows | iex
+```
+
 Create or initialize a project:
 
 ```text
