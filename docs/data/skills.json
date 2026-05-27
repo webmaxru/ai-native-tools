@@ -47,8 +47,8 @@
     },
     {
       "name": "Web AI Skills",
-      "repo": "webmaxru/agent-skills",
-      "repoUrl": "https://github.com/webmaxru/agent-skills",
+      "repo": "webmaxru/web-ai-agent-skills",
+      "repoUrl": "https://github.com/webmaxru/web-ai-agent-skills",
       "description": "Browser AI APIs: Prompt API, language detection, translation, writing assistance, and on-device ML",
       "pluginAddCmd": "/copilot plugin add web-ai-skills@webmaxru/ai-native-dev",
       "skillCount": 7,
@@ -61,8 +61,8 @@
           "version": "1.3",
           "author": "webmaxru",
           "license": "MIT",
-          "githubUrl": "https://github.com/webmaxru/agent-skills/tree/main/skills/language-detector-api",
-          "installCmd": "apm install webmaxru/agent-skills/skills/language-detector-api"
+          "githubUrl": "https://github.com/webmaxru/web-ai-agent-skills/tree/main/skills/language-detector-api",
+          "installCmd": "apm install webmaxru/web-ai-agent-skills/skills/language-detector-api"
         },
         {
           "name": "prompt-api",
@@ -72,8 +72,8 @@
           "version": "1.3",
           "author": "webmaxru",
           "license": "MIT",
-          "githubUrl": "https://github.com/webmaxru/agent-skills/tree/main/skills/prompt-api",
-          "installCmd": "apm install webmaxru/agent-skills/skills/prompt-api"
+          "githubUrl": "https://github.com/webmaxru/web-ai-agent-skills/tree/main/skills/prompt-api",
+          "installCmd": "apm install webmaxru/web-ai-agent-skills/skills/prompt-api"
         },
         {
           "name": "proofreader-api",
@@ -83,8 +83,8 @@
           "version": "1.3",
           "author": "webmaxru",
           "license": "MIT",
-          "githubUrl": "https://github.com/webmaxru/agent-skills/tree/main/skills/proofreader-api",
-          "installCmd": "apm install webmaxru/agent-skills/skills/proofreader-api"
+          "githubUrl": "https://github.com/webmaxru/web-ai-agent-skills/tree/main/skills/proofreader-api",
+          "installCmd": "apm install webmaxru/web-ai-agent-skills/skills/proofreader-api"
         },
         {
           "name": "translator-api",
@@ -94,8 +94,8 @@
           "version": "1.3",
           "author": "webmaxru",
           "license": "MIT",
-          "githubUrl": "https://github.com/webmaxru/agent-skills/tree/main/skills/translator-api",
-          "installCmd": "apm install webmaxru/agent-skills/skills/translator-api"
+          "githubUrl": "https://github.com/webmaxru/web-ai-agent-skills/tree/main/skills/translator-api",
+          "installCmd": "apm install webmaxru/web-ai-agent-skills/skills/translator-api"
         },
         {
           "name": "webmcp",
@@ -105,8 +105,8 @@
           "version": "1.3",
           "author": "webmaxru",
           "license": "MIT",
-          "githubUrl": "https://github.com/webmaxru/agent-skills/tree/main/skills/webmcp",
-          "installCmd": "apm install webmaxru/agent-skills/skills/webmcp"
+          "githubUrl": "https://github.com/webmaxru/web-ai-agent-skills/tree/main/skills/webmcp",
+          "installCmd": "apm install webmaxru/web-ai-agent-skills/skills/webmcp"
         },
         {
           "name": "webnn",
@@ -116,8 +116,8 @@
           "version": "1.3",
           "author": "webmaxru",
           "license": "MIT",
-          "githubUrl": "https://github.com/webmaxru/agent-skills/tree/main/skills/webnn",
-          "installCmd": "apm install webmaxru/agent-skills/skills/webnn"
+          "githubUrl": "https://github.com/webmaxru/web-ai-agent-skills/tree/main/skills/webnn",
+          "installCmd": "apm install webmaxru/web-ai-agent-skills/skills/webnn"
         },
         {
           "name": "writing-assistance-apis",
@@ -127,8 +127,8 @@
           "version": "1.3",
           "author": "webmaxru",
           "license": "MIT",
-          "githubUrl": "https://github.com/webmaxru/agent-skills/tree/main/skills/writing-assistance-apis",
-          "installCmd": "apm install webmaxru/agent-skills/skills/writing-assistance-apis"
+          "githubUrl": "https://github.com/webmaxru/web-ai-agent-skills/tree/main/skills/writing-assistance-apis",
+          "installCmd": "apm install webmaxru/web-ai-agent-skills/skills/writing-assistance-apis"
         }
       ]
     },
