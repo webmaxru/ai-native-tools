@@ -50,9 +50,9 @@ The fastest way to get all plugins at once. Add the marketplace, then install pl
 
 ```bash
 > /plugin marketplace add webmaxru/ai-native-dev
-> /copilot plugin add ai-native-dev-skills@webmaxru/ai-native-dev
-> /copilot plugin add web-ai-skills@webmaxru/ai-native-dev
-> /copilot plugin add enonic-skills@webmaxru/ai-native-dev
+> /copilot plugin add ai-native-dev-skills@webmaxru-ai-native-dev
+> /copilot plugin add web-ai-skills@webmaxru-ai-native-dev
+> /copilot plugin add enonic-skills@webmaxru-ai-native-dev
 ```
 
 **VS Code (GitHub Copilot)**
@@ -77,9 +77,9 @@ Then open **Agent Plugins** in the Extensions sidebar (`@agentPlugins`), find th
 
 ```bash
 > /plugin marketplace add webmaxru/ai-native-dev
-> /plugin add ai-native-dev-skills@webmaxru/ai-native-dev
-> /plugin add web-ai-skills@webmaxru/ai-native-dev
-> /plugin add enonic-skills@webmaxru/ai-native-dev
+> /plugin add ai-native-dev-skills@webmaxru-ai-native-dev
+> /plugin add web-ai-skills@webmaxru-ai-native-dev
+> /plugin add enonic-skills@webmaxru-ai-native-dev
 ```
 
 ### Install Individual Skills
