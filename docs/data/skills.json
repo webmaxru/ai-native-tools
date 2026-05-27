@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-27T13:42:44.280Z",
+  "generatedAt": "2026-05-27T14:01:12.306Z",
   "totalSkills": 18,
   "plugins": [
     {
@@ -7,7 +7,7 @@
       "repo": "webmaxru/ai-native-dev",
       "repoUrl": "https://github.com/webmaxru/ai-native-dev",
       "description": "Core development tools: package management, skill deployment, and agentic workflows",
-      "pluginAddCmd": "/copilot plugin add ai-native-dev-skills@webmaxru/ai-native-dev",
+      "pluginAddCmd": "/plugin install ai-native-dev-skills@webmaxru-ai-native-dev",
       "skillCount": 3,
       "skills": [
         {
@@ -50,7 +50,7 @@
       "repo": "webmaxru/web-ai-agent-skills",
       "repoUrl": "https://github.com/webmaxru/web-ai-agent-skills",
       "description": "Browser AI APIs: Prompt API, language detection, translation, writing assistance, and on-device ML",
-      "pluginAddCmd": "/copilot plugin add web-ai-skills@webmaxru/ai-native-dev",
+      "pluginAddCmd": "/plugin install web-ai-skills@webmaxru-ai-native-dev",
       "skillCount": 7,
       "skills": [
         {
@@ -137,7 +137,7 @@
       "repo": "webmaxru/enonic-agent-skills",
       "repoUrl": "https://github.com/webmaxru/enonic-agent-skills",
       "description": "Enonic CMS agent skills for content management, API reference, and integrations",
-      "pluginAddCmd": "/copilot plugin add enonic-skills@webmaxru/ai-native-dev",
+      "pluginAddCmd": "/plugin install enonic-skills@webmaxru-ai-native-dev",
       "skillCount": 8,
       "skills": [
         {
