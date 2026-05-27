@@ -19,7 +19,7 @@
       "name": "web-ai-skills",
       "source": {
         "source": "github",
-        "repo": "webmaxru/agent-skills"
+        "repo": "webmaxru/web-ai-agent-skills"
       },
       "category": "development"
     },

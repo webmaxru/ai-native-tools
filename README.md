@@ -23,7 +23,7 @@ Installing the marketplace gives you the following skills across all plugins:
 | Plugin | Skills | Source |
 |--------|--------|--------|
 | **ai-native-dev-skills** | Agent Package Manager · Agent Skill Deploy · GitHub Agentic Workflows | this repo |
-| **web-ai-skills** | Prompt API · Language Detector · Translator · Writing Assistance · Proofreader · WebMCP · WebNN | [webmaxru/agent-skills](https://github.com/webmaxru/agent-skills) |
+| **web-ai-skills** | Prompt API · Language Detector · Translator · Writing Assistance · Proofreader · WebMCP · WebNN | [webmaxru/web-ai-agent-skills](https://github.com/webmaxru/web-ai-agent-skills) |
 | **enonic-skills** | Enonic CMS agent skills collection | [webmaxru/enonic-agent-skills](https://github.com/webmaxru/enonic-agent-skills) |
 
 ## Website
@@ -37,7 +37,7 @@ A browsable skills catalog is published as a GitHub Pages site. It aggregates sk
 | Plugin | Skills | Source |
 |--------|--------|--------|
 | **ai-native-dev-skills** | Agent Package Manager · Agent Skill Deploy · GitHub Agentic Workflows | this repo |
-| **web-ai-skills** | Prompt API · Language Detector · Translator · Writing Assistance · Proofreader · WebMCP · WebNN | [webmaxru/agent-skills](https://github.com/webmaxru/agent-skills) |
+| **web-ai-skills** | Prompt API · Language Detector · Translator · Writing Assistance · Proofreader · WebMCP · WebNN | [webmaxru/web-ai-agent-skills](https://github.com/webmaxru/web-ai-agent-skills) |
 | **enonic-skills** | Enonic CMS agent skills collection | [webmaxru/enonic-agent-skills](https://github.com/webmaxru/enonic-agent-skills) |
 
 ## Install
@@ -104,30 +104,30 @@ npx skills add webmaxru/ai-native-dev --skill agent-skill-deploy
 npx skills add webmaxru/ai-native-dev --skill github-agentic-workflows
 ```
 
-**web-ai-skills** ([webmaxru/agent-skills](https://github.com/webmaxru/agent-skills))
+**web-ai-skills** ([webmaxru/web-ai-agent-skills](https://github.com/webmaxru/web-ai-agent-skills))
 
 Install with APM:
 
 ```bash
-apm install webmaxru/agent-skills/skills/prompt-api
-apm install webmaxru/agent-skills/skills/language-detector-api
-apm install webmaxru/agent-skills/skills/translator-api
-apm install webmaxru/agent-skills/skills/writing-assistance-apis
-apm install webmaxru/agent-skills/skills/proofreader-api
-apm install webmaxru/agent-skills/skills/webmcp
-apm install webmaxru/agent-skills/skills/webnn
+apm install webmaxru/web-ai-agent-skills/skills/prompt-api
+apm install webmaxru/web-ai-agent-skills/skills/language-detector-api
+apm install webmaxru/web-ai-agent-skills/skills/translator-api
+apm install webmaxru/web-ai-agent-skills/skills/writing-assistance-apis
+apm install webmaxru/web-ai-agent-skills/skills/proofreader-api
+apm install webmaxru/web-ai-agent-skills/skills/webmcp
+apm install webmaxru/web-ai-agent-skills/skills/webnn
 ```
 
 Install with npm:
 
 ```bash
-npx skills add webmaxru/agent-skills --skill prompt-api
-npx skills add webmaxru/agent-skills --skill language-detector-api
-npx skills add webmaxru/agent-skills --skill translator-api
-npx skills add webmaxru/agent-skills --skill writing-assistance-apis
-npx skills add webmaxru/agent-skills --skill proofreader-api
-npx skills add webmaxru/agent-skills --skill webmcp
-npx skills add webmaxru/agent-skills --skill webnn
+npx skills add webmaxru/web-ai-agent-skills --skill prompt-api
+npx skills add webmaxru/web-ai-agent-skills --skill language-detector-api
+npx skills add webmaxru/web-ai-agent-skills --skill translator-api
+npx skills add webmaxru/web-ai-agent-skills --skill writing-assistance-apis
+npx skills add webmaxru/web-ai-agent-skills --skill proofreader-api
+npx skills add webmaxru/web-ai-agent-skills --skill webmcp
+npx skills add webmaxru/web-ai-agent-skills --skill webnn
 ```
 
 **enonic-skills** ([webmaxru/enonic-agent-skills](https://github.com/webmaxru/enonic-agent-skills))

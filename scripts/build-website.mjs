@@ -23,7 +23,7 @@ const PLUGINS = [
   },
   {
     name: "Web AI Skills",
-    repo: "webmaxru/agent-skills",
+    repo: "webmaxru/web-ai-agent-skills",
     description: "Browser AI APIs: Prompt API, language detection, translation, writing assistance, and on-device ML",
     pluginAddCmd: "/copilot plugin add web-ai-skills@webmaxru/ai-native-dev",
   },
